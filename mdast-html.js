@@ -87,7 +87,19 @@ var visitors = {};
  * Return the content of a reference without definition
  * as markdown.
  *
- * @param {Node} node
+ * @example
+ *   failsafe({
+ *     identifier: 'foo',
+ *     referenceType: 'shortcut',
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }, {}); // '[foo]'
+ *
+ * @param {Node} node - Node to compile.
  * @param {Node?} definition
  * @param {HTMLCompiler} context
  * @return {string?} - If without definition, returns a
@@ -117,7 +129,7 @@ function failsafe(node, definition, context) {
  *       'title': 'Example Domain'
  *   });
  *
- * @param {Node} node
+ * @param {Node} node - Node to add.
  * @this {HTMLCompiler}
  */
 function addDefinition(node) {
@@ -134,7 +146,7 @@ function addDefinition(node) {
  *       'children': [],
  *   });
  *
- * @param {Node} node
+ * @param {Node} node - Node to add.
  * @this {HTMLCompiler}
  */
 function addFootnoteDefinition(node) {
@@ -144,7 +156,10 @@ function addFootnoteDefinition(node) {
 /**
  * Stringify all footnote definitions, if any.
  *
- * @return {string}
+ * @example
+ *   generateFootnotes(); // '<div class="footnotes">\n<hr>\n...'
+ *
+ * @return {string} - Compiled footnotes, if any.
  * @this {HTMLCompiler}
  */
 function generateFootnotes() {
@@ -195,6 +210,22 @@ function generateFootnotes() {
  * Get a link definition with the same identifier as
  * `identifier`.
  *
+ * @example
+ *   getDefinition('foo'); // {}
+ *
+ *   addDefinition({
+ *       'identifier': 'foo',
+ *       'link': 'http://example.com',
+ *       'title': 'Example Domain'
+ *   });
+ *
+ *   getDefinition('foo');
+ *   // {
+ *   //     'identifier': 'foo',
+ *   //     'link': 'http://example.com',
+ *   //     'title': 'Example Domain'
+ *   // }
+ *
  * @param {string} identifier
  * @return {Node?}
  * @this {HTMLCompiler}
@@ -215,6 +246,16 @@ function getDefinition(identifier) {
 
 /**
  * Stringify the children of `node`.
+ *
+ * @example
+ *   all({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // 'foo'
  *
  * @param {Node} parent
  * @return {Array.<string>}
@@ -240,21 +281,27 @@ function all(parent) {
 }
 
 /**
- * Stringify a block.
- *
- * @param {Node} node
- * @return {string}
- * @this {HTMLCompiler}
- */
-function block(node) {
-    return this.all(node).join('\n');
-}
-
-/**
  * Stringify a root object.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   // This will additionally include defined footnotes,
+ *   // when applicable.
+ *   root({
+ *     children: [
+ *       {
+ *         type: 'paragraph',
+ *         children: [
+ *           {
+ *             type: 'text',
+ *             value: 'foo'
+ *           }
+ *         ]
+ *       }
+ *     ]
+ *   }); // '<p>foo</p>\n'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function root(node) {
@@ -266,25 +313,52 @@ function root(node) {
     visit(node, 'definition', addDefinition, self);
     visit(node, 'footnoteDefinition', addFootnoteDefinition, self);
 
-    return self.block(node) + '\n' + self.generateFootnotes();
+    return self.all(node).join('\n') + '\n' + self.generateFootnotes();
 }
 
 /**
  * Stringify a block quote.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   blockquote({
+ *     children: [
+ *       {
+ *         type: 'paragraph',
+ *         children: [
+ *           {
+ *             type: 'text',
+ *             value: 'foo'
+ *           }
+ *         ]
+ *       }
+ *     ]
+ *   }); // '<blockquote>\n<p>foo</p>\n</blockquote>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function blockquote(node) {
-    return h(this, node, 'blockquote', this.block(node), true);
+    return h(this, node, 'blockquote', this.all(node).join('\n'), true);
 }
 
 /**
  * Stringify an inline footnote.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   // This additionally adds a definition at the bottem
+ *   // of the document.
+ *   footnote({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '<sup id="fnref-1"><a href="#fn-1">1</a></sup>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function footnote(node) {
@@ -325,8 +399,30 @@ function footnote(node) {
 /**
  * Stringify a list.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   list({
+ *     ordered: true
+ *     loose: false
+ *     children: [
+ *       {
+ *         type: 'listItem',
+ *         children: [
+ *           {
+ *             type: 'paragraph',
+ *             children: [
+ *               {
+ *                 type: 'text',
+ *                 value: 'foo'
+ *               }
+ *             ]
+ *           }
+ *         ]
+ *       }
+ *     ]
+ *   }); // '<ol>\n<li>foo</li>\n</ol>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function list(node) {
@@ -338,8 +434,26 @@ function list(node) {
 /**
  * Stringify a list-item.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   listItem({
+ *     children: [
+ *       {
+ *         type: 'paragraph',
+ *         children: [
+ *           {
+ *             type: 'text',
+ *             value: 'foo'
+ *           }
+ *         ]
+ *       }
+ *     ]
+ *   }, {
+ *     loose: false
+ *   }); // '<li>foo</li>'
+ *
+ * @param {Node} node - Node to compile.
+ * @param {Node} parent - Parent of `node`.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function listItem(node, parent) {
@@ -360,8 +474,19 @@ function listItem(node, parent) {
 /**
  * Stringify a heading.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   heading({
+ *     depth: 3,
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '<h3>foo</h3>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function heading(node) {
@@ -371,8 +496,18 @@ function heading(node) {
 /**
  * Stringify a paragraph.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   paragraph({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // 'foo'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function paragraph(node) {
@@ -384,8 +519,13 @@ function paragraph(node) {
 /**
  * Stringify a code block.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   code({
+ *     value: 'foo &amp; bar;'
+ *   }); // '<pre><code>foo &amp;amp; bar\n</code></pre>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function code(node) {
@@ -401,8 +541,18 @@ function code(node) {
 /**
  * Stringify a table.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   table({
+ *     children: [
+ *       {
+ *         type: 'tableRow',
+ *         ...
+ *       }
+ *     ]
+ *   }); // '<table><thead>...'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function table(node) {
@@ -442,8 +592,13 @@ function table(node) {
 /**
  * Stringify a literal HTML.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   html({
+ *     value: '<i>italic</i>'
+ *   }); // '<i>italic</i>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function html(node) {
@@ -453,8 +608,11 @@ function html(node) {
 /**
  * Stringify a horizontal rule.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   rule(); // '<hr>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function rule(node) {
@@ -464,8 +622,13 @@ function rule(node) {
 /**
  * Stringify inline code.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   inlineCode({
+ *     value: 'foo &amp; bar;'
+ *   }); // '<code>foo &amp;amp; bar;</code>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function inlineCode(node) {
@@ -475,8 +638,18 @@ function inlineCode(node) {
 /**
  * Stringify strongly emphasised content.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   strong({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '<strong>foo</strong>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function strong(node) {
@@ -486,8 +659,18 @@ function strong(node) {
 /**
  * Stringify emphasised content.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   emphasis({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '<em>foo</em>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function emphasis(node) {
@@ -497,8 +680,11 @@ function emphasis(node) {
 /**
  * Stringify an inline break.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   hardBreak(); // '<br>\n'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function hardBreak(node) {
@@ -508,8 +694,19 @@ function hardBreak(node) {
 /**
  * Stringify a link.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   link({
+ *     href: 'http://example.com',
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '<a href="http://example.com">foo</a>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function link(node) {
@@ -522,8 +719,14 @@ function link(node) {
 /**
  * Stringify a reference to a footnote.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   // If a definition was added previously:
+ *   footnoteReference({
+ *     identifier: 'foo'
+ *   }); // '<sup id="fnref-foo"><a href="#fn-foo">foo</a></sup>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function footnoteReference(node) {
@@ -540,8 +743,14 @@ function footnoteReference(node) {
 /**
  * Stringify a reference to a link.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   // If a definition was added previously:
+ *   linkReference({
+ *     identifier: 'foo'
+ *   }); // '<a href="http://example.com/fav.ico"></a>'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function linkReference(node) {
@@ -557,8 +766,14 @@ function linkReference(node) {
 /**
  * Stringify a reference to an image.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   // If a definition was added previously:
+ *   imageReference({
+ *     identifier: 'foo'
+ *   }); // '<img src="http://example.com/fav.ico" alt="">'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function imageReference(node) {
@@ -575,8 +790,13 @@ function imageReference(node) {
 /**
  * Stringify an image.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   image({
+ *     src: 'http://example.com/fav.ico'
+ *   }); // '<img src="http://example.com/fav.ico" alt="">'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function image(node) {
@@ -590,8 +810,18 @@ function image(node) {
 /**
  * Stringify a deletion.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   strikethrough({
+ *     children: [
+ *       {
+ *         type: 'text',
+ *         value: 'foo'
+ *       }
+ *     ]
+ *   }); // '~~foo~~'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function strikethrough(node) {
@@ -601,8 +831,13 @@ function strikethrough(node) {
 /**
  * Stringify text.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   text({value: '&'}); // '&amp;'
+ *
+ *   text({value: 'foo'}); // 'foo'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function text(node) {
@@ -612,8 +847,13 @@ function text(node) {
 /**
  * Stringify escaped text.
  *
- * @param {Node} node
- * @return {string}
+ * @example
+ *   escape({value: '\n'}); // '<br>\n'
+ *
+ *   escape({value: '|'}); // '\\|'
+ *
+ * @param {Node} node - Node to compile.
+ * @return {string} - Compiled node.
  * @this {HTMLCompiler}
  */
 function escape(node) {
@@ -623,7 +863,10 @@ function escape(node) {
 /**
  * Return an empty string for nodes which are ignored.
  *
- * @return {string}
+ * @example
+ *   ignore(); // ''
+ *
+ * @return {string} - Empty string.
  * @this {HTMLCompiler}
  */
 function ignore() {
@@ -635,7 +878,6 @@ function ignore() {
  */
 
 visitors.all = all;
-visitors.block = block;
 visitors.generateFootnotes = generateFootnotes;
 visitors.getDefinition = getDefinition;
 
@@ -735,6 +977,20 @@ function toAttributes(attributes, encode, node) {
 /**
  * Compile a `node`, in `context`, into HTML.
  *
+ * @example
+ *   h(compiler, {
+ *     'type': 'break'
+ *     'attributes': {
+ *       'id': 'foo'
+ *     }
+ *   }, 'br') // '<br id="foo">'
+ *
+ *   h(compiler, {
+ *     'type': 'break'
+ *   }, 'br', {
+ *     'id': 'foo'
+ *   }) // '<br id="foo">'
+ *
  * @param {HTMLCompiler} context
  * @param {Node} node - mdast node.  If `node` has an
  *   `attributes` hash, its properties are also stringified
@@ -808,18 +1064,28 @@ var WHITE_SPACE_FINAL = /[ \t\n]+$/g;
 /**
  * Remove initial white space from `value`.
  *
- * @param {string} value
- * @return {string}
+ * @example
+ *   trimLeft(' foo'); // 'foo'
+ *
+ *   trimLeft('\n\tfoo'); // 'foo'
+ *
+ * @param {string} value - Content to trim.
+ * @return {string} - Trimmed `value`.
  */
 function trimLeft(value) {
     return String(value).replace(WHITE_SPACE_INITIAL, '');
 }
 
 /**
- * Remove initial white space from `value`.
+ * Remove final white space from `value`.
  *
- * @param {string} value
- * @return {string}
+ * @example
+ *   trimRight('foo '); // 'foo'
+ *
+ *   trimRight('foo\t\n'); // 'foo'
+ *
+ * @param {string} value - Content to trim.
+ * @return {string} - Trimmed `value`.
  */
 function trimRight(value) {
     return String(value).replace(WHITE_SPACE_FINAL, '');
@@ -828,55 +1094,53 @@ function trimRight(value) {
 /**
  * Remove initial and final white space from `value`.
  *
- * @param {string} value
- * @return {string}
+ * @example
+ *   trim(' foo '); // 'foo'
+ *
+ *   trim('\n foo\t\n'); // 'foo'
+ *
+ * @param {string} value - Content to trim.
+ * @return {string} - Trimmed `value`.
  */
 function trim(value) {
     return trimRight(trimLeft(value));
 }
 
 /**
- * Remove initial and final white space in lines from `value`.
+ * Remove initial and final spaces and tabs in each line in
+ * `value`.
  *
- * @param {string} value
- * @return {string}
+ * @example
+ *   trimLines(' foo\n bar \nbaz'); // 'foo\nbar\nbaz'
+ *
+ * @param {string} value - Content to trim.
+ * @return {string} - Trimmed `value`.
  */
 function trimLines(value) {
     return String(value).replace(WHITE_SPACE_COLLAPSABLE_LINE, '\n');
 }
 
 /**
- * Normalize `uri`.
+ * Collapse multiple spaces, tabs, and newlines.
  *
- * This only works when both `encodeURI` and `decodeURI`
- * are available.
+ * @example
+ *   collapse(' \t\nbar \nbaz\t'); // ' bar baz '
  *
- * @param {string} uri
- * @return {string} - Normalized uri.
- */
-function normalizeURI(uri) {
-    try {
-        uri = encodeURI(decodeURI(uri));
-    } catch (exception) { /* empty */ }
-
-    return uri;
-}
-
-/**
- * Collapse white space.
- *
- * @param {string} value
- * @return {string}
+ * @param {string} value - Content to trim.
+ * @return {string} - Trimmed `value`.
  */
 function collapse(value) {
     return String(value).replace(WHITE_SPACE_COLLAPSABLE, ' ');
 }
 
 /**
- * Gets column-size of the indentation.
+ * Remove tabs from indented content.
  *
- * @param {string} value
- * @return {Object}
+ * @example
+ *   detab('  \tbar'); // '    bar'
+ *
+ * @param {string} value - Content with tabs.
+ * @return {string} - Cleaned `value`.
  */
 function detab(value) {
     var length = value.length;
@@ -896,6 +1160,26 @@ function detab(value) {
     }
 
     return characters.join('');
+}
+
+/**
+ * Normalize `uri`.
+ *
+ * This only works when both `encodeURI` and `decodeURI`
+ * are available.
+ *
+ * @example
+ *   normalizeURI('foo bar'); // 'foo%20bar'
+ *
+ * @param {string} uri - URI to normalize.
+ * @return {string} - Normalized uri.
+ */
+function normalizeURI(uri) {
+    try {
+        uri = encodeURI(decodeURI(uri));
+    } catch (exception) { /* empty */ }
+
+    return uri;
 }
 
 /*
@@ -918,10 +1202,13 @@ module.exports = util;
 /**
  * Visit.
  *
- * @param {Node} tree
- * @param {string} type - Node type.
- * @param {function(node)} callback
- * @param {Object} context
+ * @param {Node} tree - Node to search.
+ * @param {string} type - Type of nodes to search invoke
+ *   `callback` with.
+ * @param {function(node)} callback - Callback invoked
+ *   with nodes matching `type`.
+ * @param {Object} context - Object to call `callback`
+ *   with.
  */
 function visit(tree, type, callback, context) {
     /**
