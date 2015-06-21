@@ -13,8 +13,24 @@ npm install mdast-html
 
 **mdast-html** is also available for [bower](http://bower.io/#install-packages),
 [component](https://github.com/componentjs/component), and
-[duo](http://duojs.org/#getting-started), and as AMD, CommonJS, and globals
+[duo](http://duojs.org/#getting-started), and as an AMD, CommonJS, and globals
 module, [uncompressed](mdast-html.js) and [compressed](mdast-html.min.js).
+
+## Table of Contents
+
+*   [Command line](#command-line)
+
+*   [Programmatic](#programmatic)
+
+    *   [mdast.use(html, options)](#mdastusehtml-options)
+
+*   [Configuration](#configuration)
+
+*   [CommonMark](#commonmark)
+
+*   [Integrations](#integrations)
+
+*   [License](#license)
 
 ## Command line
 
@@ -74,14 +90,14 @@ console.log(result);
 
 ## Configuration
 
-All options, including the `option` object itself, are optional:
+All options, including the `options` object itself, are optional:
 
 *   `entities` (`true`, `'numbers'`, or `'escape'`, default: `true`)
     — How to encode non-ASCII and HTML-escape characters: the default
     generates named entities (`&` > `&amp;`); `'numbers'` generates
     numbered entities (`&` > `&#x26;`), and `'escape'` only encodes
     characters which are required by HTML to be escaped: `&`, `<`, `>`,
-    `"`, `'`, and `` ` ``, leaving non-ASCII character untouched.
+    `"`, `'`, and `` ` ``, leaving non-ASCII characters untouched.
 
 *   `xhtml` (`boolean`, default: `false`)
     — Whether or not to terminate self-closing tags (such as `img`) with a
@@ -134,15 +150,15 @@ real world.
 
 **mdast-html** works great with:
 
-*   [**mdast-toc**](https://github.com/wooorm/mdast-toc), to generate
+*   [**mdast-toc**](https://github.com/wooorm/mdast-toc), which generates
     tables of contents;
 
-*   [**mdast-github**](https://github.com/wooorm/mdast-github), to generate
-    references to GitHub issues, PRs, and users;
+*   [**mdast-github**](https://github.com/wooorm/mdast-github), which generates
+    references to GitHub issues, PRs, users, and more;
 
 *   [**mdast-comment-config**](https://github.com/wooorm/mdast-comment-config)
     and [**mdast-yaml-config**](https://github.com/wooorm/mdast-yaml-config),
-    to specify how HTML is compiled in the document itself;
+    which specify how HTML is compiled in the document itself;
 
 *   ...and [more](https://github.com/wooorm/mdast/blob/master/doc/plugins.md#list-of-plugins).
 
