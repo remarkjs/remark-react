@@ -1,0 +1,36 @@
+{
+  "name": "mdast-html",
+  "main": "mdast-html.js",
+  "description": "Compile Markdown to HTML with mdast",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "html",
+    "stringify",
+    "compile",
+    "mdast"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/mdast-html.git"
+  },
+  "author": {
+    "name": "Titus Wormer",
+    "email": "tituswormer@gmail.com"
+  },
+  "ignore": [
+    ".*",
+    "*.log",
+    "*.md",
+    "build/",
+    "components/",
+    "coverage/",
+    "node_modules/",
+    "test/",
+    "build.js",
+    "example.js",
+    "index.js",
+    "component.json",
+    "package.json"
+  ]
+}

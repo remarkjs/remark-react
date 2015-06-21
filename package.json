@@ -1,0 +1,63 @@
+{
+  "name": "mdast-html",
+  "version": "0.0.0",
+  "description": "Compile Markdown to HTML with mdast",
+  "license": "MIT",
+  "keywords": [
+    "markdown",
+    "html",
+    "stringify",
+    "compile",
+    "mdast"
+  ],
+  "dependencies": {
+    "repeat-string": "^1.5.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/mdast-html.git"
+  },
+  "author": {
+    "name": "Titus Wormer",
+    "email": "tituswormer@gmail.com"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "mdast": ">=0.24.0"
+  },
+  "devDependencies": {
+    "browserify": "^10.0.0",
+    "commonmark.json": "^0.20.0",
+    "eslint": "^0.23.0",
+    "esmangle": "^1.0.0",
+    "istanbul": "^0.3.0",
+    "jscs": "^1.0.0",
+    "jscs-jsdoc": "^1.0.0",
+    "mdast": "^0.24.0",
+    "mdast-comment-config": "^0.1.1",
+    "mdast-github": "^0.3.0",
+    "mdast-lint": "^0.3.0",
+    "mdast-toc": "^0.5.0",
+    "mdast-yaml-config": "^0.2.0",
+    "mocha": "^2.0.0"
+  },
+  "scripts": {
+    "test-api": "mocha --check-leaks test/index.js",
+    "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test/index.js",
+    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
+    "test-travis": "npm run test-coveralls",
+    "test": "npm run test-api",
+    "lint-api": "eslint .",
+    "lint-style": "jscs --reporter inline .",
+    "lint": "npm run lint-api && npm run lint-style",
+    "make": "npm run lint && npm run test-coverage",
+    "build-md": "mdast . --output --quiet",
+    "build-bundle": "browserify index.js --bare -s mdastHTML > mdast-html.js",
+    "postbuild-bundle": "esmangle mdast-html.js > mdast-html.min.js",
+    "build": "npm run build-md && npm run build-bundle"
+  }
+}
