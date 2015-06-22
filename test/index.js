@@ -74,8 +74,24 @@ var FIXTURE_ROOT = join(__dirname, 'fixtures');
 var CMARK_OPTIONS = {
     'entities': 'escape',
     'commonmark': true,
+    'yaml': false,
     'xhtml': true
 };
+
+/*
+ * List of CommonMark tests I dissagree with.
+ * For reasoning, see `doc/commonmark.md`.
+ *
+ * Note that these differences have to do with not
+ * puting more time into features which IMHO produce
+ * less quality HTML. So if you’d like to write the
+ * features, I’ll gladly merge!
+ */
+
+var CMARK_IGNORE = [
+    247,
+    248
+];
 
 /*
  * Fixtures.
@@ -226,13 +242,19 @@ function describeCommonMark(test, n) {
     var err;
     var fn;
 
+    n = n + 1;
+
     test.html = test.html.replace(/'/g, '&#x27;').replace(/`/g, '&#x60;');
 
     err = assertion(result, test.html, true);
 
-    fn = ignoreCommonMarkException && err ? it.skip : it;
+    fn = it;
 
-    fn('(' + (n + 1) + ') should work on ' + name, function () {
+    if (CMARK_IGNORE.indexOf(n) !== -1 || ignoreCommonMarkException && err) {
+        fn = fn.skip;
+    }
+
+    fn('(' + n + ') should work on ' + name, function () {
         if (err) {
             throw err;
         }

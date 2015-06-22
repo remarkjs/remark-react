@@ -144,7 +144,8 @@ necessity. There are some (roughly 160 of 550, relating to inline
 precedence, HTML, lists, emphasis and strongness) issues which I’d like
 to cover in the future. Note that this sounds like a lot but often
 have to do with obscure differences which do not often occur in the
-real world.
+real world. Read more on some of the reason in
+[`doc/commonmark.md`](doc/commonmark.md).
 
 ## Integrations
 
