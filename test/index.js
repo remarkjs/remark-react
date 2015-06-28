@@ -89,8 +89,61 @@ var CMARK_OPTIONS = {
  */
 
 var CMARK_IGNORE = [
+    /*
+     * Exception 1.
+     */
+
     247,
-    248
+    248,
+
+    /*
+     * Exception 2.
+     */
+    3,
+    50,
+    76,
+    77,
+    80,
+    86,
+    89,
+    98,
+    118,
+    176,
+    230,
+    231,
+    233,
+    236,
+    257,
+    258,
+    261,
+    262,
+    263,
+    264,
+    265,
+    266,
+    267,
+    268,
+    269,
+    270,
+    395,
+    396,
+    433,
+    445,
+    520,
+    522,
+    551,
+
+    /*
+     * Exception 3.
+     */
+    428,
+    477,
+    478,
+    479,
+    480,
+    481,
+    489,
+    493
 ];
 
 /*
@@ -243,8 +296,6 @@ function describeCommonMark(test, n) {
     var fn;
 
     n = n + 1;
-
-    test.html = test.html.replace(/'/g, '&#x27;').replace(/`/g, '&#x60;');
 
     err = assertion(result, test.html, true);
 
