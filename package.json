@@ -27,7 +27,7 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "mdast": ">=0.24.0"
+    "mdast": ">=0.25.0"
   },
   "devDependencies": {
     "browserify": "^10.0.0",
@@ -37,7 +37,7 @@
     "istanbul": "^0.3.0",
     "jscs": "^1.0.0",
     "jscs-jsdoc": "^1.0.0",
-    "mdast": "^0.24.0",
+    "mdast": "^0.25.0",
     "mdast-comment-config": "^0.1.1",
     "mdast-github": "^0.3.0",
     "mdast-lint": "^0.3.0",

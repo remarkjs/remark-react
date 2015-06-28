@@ -140,11 +140,11 @@ Read more about the latter on [**mdast**’s readme](https://github.com/wooorm/m
 > [**mdast**’s options](https://github.com/wooorm/mdast#mdastprocessvalue-options-done)
 
 [CommonMark](http://commonmark.org) support is a goal but not (yet) a
-necessity. There are some (roughly 160 of 550, relating to inline
-precedence, HTML, lists, emphasis and strongness) issues which I’d like
-to cover in the future. Note that this sounds like a lot but often
+necessity. There are some (roughly 115 of 550, relating to inline
+precedence, lists, emphasis and strongness) issues which I’d like
+to cover in the future. Note that this sounds like a lot, but they
 have to do with obscure differences which do not often occur in the
-real world. Read more on some of the reason in
+real world. Read more on some of the reasoning in
 [`doc/commonmark.md`](doc/commonmark.md).
 
 ## Integrations
