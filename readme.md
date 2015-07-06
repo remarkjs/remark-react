@@ -49,16 +49,30 @@ npm install mdast-react
 Let’s say `example.js` looks as follows:
 
 ```js
-var mdast = require('mdast');
-var mdastReact = require('mdast-react');
+var React = require('react'),
+    mdast = require('mdast'),
+    reactRenderer = require('mdast-react');
 
-var doc = '# Hello & World\n' +
-    '\n' +
-    '**Alpha**, _bravo_, and ~~Charlie~~.\n';
+var App = React.createClass({
+    getInitialState() {
+        return { text: '# hello world' };
+    },
+    onChange(e) {
+        this.setState({ text: e.target.value });
+    },
+    render() {
+        return (<div>
+            <textarea
+                value={this.state.text}
+                onChange={this.onChange} />
+            <div id='preview'>
+                {mdast().use(reactRenderer).process(this.state.text)}
+            </div>
+        </div>);
+    }
+});
 
-var result = mdast().use(mdastReact).process(doc);
-
-// result is a react vdom
+React.render(<App />, document.getElementById('app'));
 ```
 
 ## Configuration
