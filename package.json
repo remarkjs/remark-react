@@ -1,0 +1,35 @@
+{
+  "name": "mdast-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "budo": "^4.1.0",
+    "mdast": "^0.26.1",
+    "mdast-react": "^0.1.0",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "start": "budo index.js --serve bundle.js --live",
+    "build": "browserify index.js > bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapbox/mdast-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapbox/mdast-react/issues"
+  },
+  "homepage": "https://github.com/mapbox/mdast-react#readme"
+}
