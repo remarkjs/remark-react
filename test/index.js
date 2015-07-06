@@ -195,7 +195,7 @@ commonmark.forEach(function (test, position) {
  */
 function process(file, config) {
     var vdom = mdast.use(html, config).process(file, config);
-    return React.renderToString(vdom);
+    return React.renderToStaticMarkup(vdom);
 }
 
 /**
