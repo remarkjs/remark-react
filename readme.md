@@ -75,11 +75,7 @@ All options, including the `options` object itself, are optional:
 *   `sanitize` (`boolean`, default: `false`)
     — Whether or not to allow the use of HTML inside markdown.
 
-These can passed to `mdast.use()` as a second argument, or on the CLI:
-
-```bash
-mdast --use 'html=sanitize:false,xhtml:false,entities:"escape"' example.md
-```
+These can passed to `mdast.use()` as a second argument.
 
 You can define these in `.mdastrc` or `package.json` [files](https://github.com/wooorm/mdast/blob/master/doc/mdastrc.5.md)
 too. An example `.mdastrc` file could look as follows:

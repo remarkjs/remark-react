@@ -319,7 +319,7 @@ function describeFixture(fixture) {
  */
 
 describe('Fixtures', function () {
-    describeFixture('code');
+    describeFixture('references');
     // fixtures.forEach(describeFixture);
 });
 
