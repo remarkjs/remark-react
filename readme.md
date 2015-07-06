@@ -1,6 +1,6 @@
-# mdast-html [![Build Status](https://img.shields.io/travis/wooorm/mdast-html.svg?style=flat)](https://travis-ci.org/wooorm/mdast-html) [![Coverage Status](https://img.shields.io/coveralls/wooorm/mdast-html.svg?style=flat)](https://coveralls.io/r/wooorm/mdast-html?branch=master)
+# mdast-html [![Build Status](https://img.shields.io/travis/mapbox/mdast-react.svg?style=flat)](https://travis-ci.org/mapbox/mdast-react)
 
-**mdast-html** compiles markdown to HTML.  Built on [**mdast**](https://github.com/wooorm/mdast),
+**mdast-react** compiles markdown to React.  Built on [**mdast**](https://github.com/wooorm/mdast),
 an extensively tested and pluggable parser.
 
 ## Installation
@@ -8,13 +8,8 @@ an extensively tested and pluggable parser.
 [npm](https://docs.npmjs.com/cli/install):
 
 ```bash
-npm install mdast-html
+npm install mdast-react
 ```
-
-**mdast-html** is also available for [bower](http://bower.io/#install-packages),
-[component](https://github.com/componentjs/component), and
-[duo](http://duojs.org/#getting-started), and as an AMD, CommonJS, and globals
-module, [uncompressed](mdast-html.js) and [compressed](mdast-html.min.js).
 
 ## Table of Contents
 
@@ -32,35 +27,6 @@ module, [uncompressed](mdast-html.js) and [compressed](mdast-html.min.js).
 
 *   [License](#license)
 
-## Command line
-
-Use **mdast-html** together with **mdast**:
-
-```bash
-npm install --global mdast mdast-html
-```
-
-Let’s say `example.md` looks as follows:
-
-```md
-# Hello & World
-
-**Alpha**, _bravo_, and ~~Charlie~~.
-```
-
-Then, run **mdast-html** on `example.md`:
-
-```bash
-mdast -u mdast-html example.md -o
-```
-
-Yields (check out the newly created `example.html` file):
-
-```html
-<h1>Hello &amp; World</h1>
-<p><strong>Alpha</strong>, <em>bravo</em>, and <del>Charlie</del>.</p>
-```
-
 ## Programmatic
 
 ### [mdast](https://github.com/wooorm/mdast#api).[use](https://github.com/wooorm/mdast#mdastuseplugin-options)(html, [options](#configuration))
@@ -74,18 +40,15 @@ Let’s say `example.js` looks as follows:
 
 ```js
 var mdast = require('mdast');
-var html = require('mdast-html');
+var mdastReact = require('mdast-react');
 
 var doc = '# Hello & World\n' +
     '\n' +
     '**Alpha**, _bravo_, and ~~Charlie~~.\n';
 
-var result = mdast().use(html).process(doc);
+var result = mdast().use(mdastReact).process(doc);
 
-console.log(result);
-/*
- * '<h1>Hello &amp; World</h1>\n<p><strong>Alpha</strong>, <em>bravo</em>, and <del>Charlie</del>.</p>'
- */
+// result is a react vdom
 ```
 
 ## Configuration
@@ -98,10 +61,6 @@ All options, including the `options` object itself, are optional:
     numbered entities (`&` > `&#x26;`), and `'escape'` only encodes
     characters which are required by HTML to be escaped: `&`, `<`, `>`,
     `"`, `'`, and `` ` ``, leaving non-ASCII characters untouched.
-
-*   `xhtml` (`boolean`, default: `false`)
-    — Whether or not to terminate self-closing tags (such as `img`) with a
-    slash;
 
 *   `sanitize` (`boolean`, default: `false`)
     — Whether or not to allow the use of HTML inside markdown.
@@ -149,7 +108,7 @@ real world. Read more on some of the reasoning in
 
 ## Integrations
 
-**mdast-html** works great with:
+**mdast-react** works great with:
 
 *   [**mdast-toc**](https://github.com/wooorm/mdast-toc), which generates
     tables of contents;
@@ -170,4 +129,4 @@ as HTML attributes on the compiled tag.
 
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com)
+[MIT](LICENSE) © [Titus Wormer](http://wooorm.com), modified by [Tom MacWright](http://www.macwright.org/) and [Mapbox](https://www.mapbox.com/)

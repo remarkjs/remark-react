@@ -1,7 +1,7 @@
 {
-  "name": "mdast-html",
+  "name": "mdast-react",
   "version": "0.1.0",
-  "description": "Compile Markdown to HTML with mdast",
+  "description": "Compile Markdown to React with mdast",
   "license": "MIT",
   "keywords": [
     "markdown",
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wooorm/mdast-html.git"
+    "url": "https://github.com/mapbox/mdast-react.git"
   },
   "author": {
     "name": "Titus Wormer",
