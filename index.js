@@ -21,11 +21,11 @@ function plugin(mdast, options) {
     /**
      * Extensible prototype.
      */
-    function HTMLCompilerPrototype() {}
+    function ReactCompilerPrototype() {}
 
-    HTMLCompilerPrototype.prototype = ancestor;
+    ReactCompilerPrototype.prototype = ancestor;
 
-    proto = new HTMLCompilerPrototype();
+    proto = new ReactCompilerPrototype();
 
     proto.options.xhtml = false;
     proto.options.sanitize = false;
@@ -34,13 +34,13 @@ function plugin(mdast, options) {
     /**
      * Extensible constructor.
      */
-    function HTMLCompiler(file) {
+    function ReactCompiler(file) {
         file.extension = 'html';
 
         MarkdownCompiler.apply(this, [file, options]);
     }
 
-    HTMLCompiler.prototype = proto;
+    ReactCompiler.prototype = proto;
 
     /*
      * Expose compilers.
@@ -50,7 +50,7 @@ function plugin(mdast, options) {
         proto[key] = compilers[key];
     }
 
-    mdast.Compiler = HTMLCompiler;
+    mdast.Compiler = ReactCompiler;
 }
 
 /*
