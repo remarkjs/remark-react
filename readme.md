@@ -1,4 +1,6 @@
-# mdast-html [![Build Status](https://img.shields.io/travis/mapbox/mdast-react.svg?style=flat)](https://travis-ci.org/mapbox/mdast-react)
+# mdast-react
+
+[![Build Status](https://img.shields.io/travis/mapbox/mdast-react.svg?style=flat)](https://travis-ci.org/mapbox/mdast-react)
 
 **mdast-react** compiles markdown to React.  Built on [**mdast**](https://github.com/wooorm/mdast),
 an extensively tested and pluggable parser.

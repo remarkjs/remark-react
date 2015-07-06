@@ -56,9 +56,6 @@
     "lint-style": "jscs --reporter inline .",
     "lint": "npm run lint-api && npm run lint-style",
     "make": "npm run lint && npm run test-coverage",
-    "build-md": "mdast . --output --quiet",
-    "build-bundle": "browserify index.js --bare -s mdastHTML > mdast-html.js",
-    "postbuild-bundle": "esmangle mdast-html.js > mdast-html.min.js",
-    "build": "npm run build-md && npm run build-bundle"
+    "build-md": "mdast . --output --quiet"
   }
 }
