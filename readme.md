@@ -5,6 +5,14 @@
 **mdast-react** compiles markdown to React.  Built on [**mdast**](https://github.com/wooorm/mdast),
 an extensively tested and pluggable parser.
 
+**Why?** Using innerHTML and [dangerouslySetInnerHTML](https://facebook.github.io/react/tips/dangerously-set-inner-html.html) in
+[React.js](http://facebook.github.io/react/) is a common cause of [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting)
+attacks: user input can include script tags and other kinds of active
+content that reaches across domains and harms security. mdast-react
+builds a DOM in React, using [React.createElement](https://facebook.github.io/react/docs/top-level-api.html):
+this means that you can display parsed & formatted Markdown content
+in an application without using `dangerouslySetInnerHTML`.
+
 ## Installation
 
 [npm](https://docs.npmjs.com/cli/install):
