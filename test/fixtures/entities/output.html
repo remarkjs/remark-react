@@ -1,15 +1,10 @@
-<p>Lots of entities are supported: &nbsp;, &amp;, &copy;, &AElig;,
-&Dcaron;, &frac34;, &Hscr;, &dd;,
-&cwconint;, &amp;c.  Even some entities with a missing
+<div><p><span>Lots of entities are supported:  , &amp;, ©, Æ,
+Ď, ¾, ℋ, ⅆ,
+∲, &amp;c.  Even some entities with a missing
 terminal semicolon are parsed correctly (as per the HTML5 spec):
-&yuml;, &aacute;, &copy;, and &amp;.</p>
-<p>However, &amp;MadeUpEntities; are kept in the document.</p>
-<p>Entities even work in the language flag of fenced code blocks:</p>
-<pre><code class="language-some&mdash;language">alert(&apos;Hello&apos;);
-</code></pre>
-<p>Or in <a href="~/some%E2%80%94file" title="in some pl&aelig;ce">l&iacute;nks</a></p>
-<p>Or in <img src="~/an%E2%80%93image.png" alt="&iacute;mages" title="&copy; Someone"></p>
-<p>But, entities are not interpreted in <code>inline c&amp;ouml;de</code>, or in
-code blocks:</p>
-<pre><code>C&amp;Ouml;DE block.
-</code></pre>
+ÿ, á, ©, and &amp;.</span></p><p><span>However, &amp;MadeUpEntities; are kept in the document.</span></p><p><span>Entities even work in the language flag of fenced code blocks:</span></p><pre>
+<code class="language-some—language">alert(&amp;apos;Hello&amp;apos;);
+</code></pre><p><span>Or in </span><a href="~/some%E2%80%94file" title="in some plæce"><span>línks</span></a></p><p><span>Or in </span><img src="~/an%E2%80%93image.png" alt="ímages" title="© Someone"></p><p><span>But, entities are not interpreted in </span><code>inline c&amp;amp;ouml;de</code><span>, or in
+code blocks:</span></p><pre>
+<code>C&amp;amp;Ouml;DE block.
+</code></pre></div>

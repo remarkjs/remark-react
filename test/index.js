@@ -17,7 +17,7 @@ var github = require('mdast-github');
 var commentConfig = require('mdast-comment-config');
 var commonmark = require('commonmark.json');
 var File = require('mdast/lib/file');
-var html = require('..');
+var reactRenderer = require('..');
 
 /*
  * By default, CommonMark failures are accepted.
@@ -33,6 +33,7 @@ var ignoreCommonMarkException = !('CMARK' in global.process.env);
  */
 
 var read = fs.readFileSync;
+var write = fs.writeFileSync;
 var exists = fs.existsSync;
 var join = path.join;
 var basename = path.basename;
@@ -194,7 +195,7 @@ commonmark.forEach(function (test, position) {
  * @return {string}
  */
 function process(file, config) {
-    var vdom = mdast.use(html, config).process(file, config);
+    var vdom = mdast.use(reactRenderer, config).process(file, config);
     return React.renderToStaticMarkup(vdom);
 }
 
@@ -226,14 +227,14 @@ function assertion(actual, expected, silent) {
  * Tests.
  */
 
-describe('mdast-html()', function () {
+describe('mdast-react()', function () {
     it('should be a function', function () {
-        assert(typeof html === 'function');
+        assert(typeof reactRenderer === 'function');
     });
 
     it('should not throw if not passed options', function () {
         assert.doesNotThrow(function () {
-            html(mdast());
+            reactRenderer(mdast());
         });
     });
 });
@@ -254,6 +255,10 @@ function describeFixture(fixture) {
 
         config = exists(config) ? JSON.parse(read(config, 'utf-8')) : {};
         result = process(file, config);
+
+        if (global.process.env.UPDATE) {
+            write(join(filepath, 'output.html'), result);
+        }
 
         assertion(result, output);
     });
@@ -319,8 +324,8 @@ function describeFixture(fixture) {
  */
 
 describe('Fixtures', function () {
-    describeFixture('references');
-    // fixtures.forEach(describeFixture);
+    // describeFixture('list');
+    fixtures.forEach(describeFixture);
 });
 
 /*
