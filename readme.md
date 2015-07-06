@@ -27,7 +27,7 @@ npm install mdast-react
 
 *   [Programmatic](#programmatic)
 
-    *   [mdast.use(html, options)](#mdastusehtml-options)
+    *   [mdast.use(react, options)](#mdastusereact-options)
 
 *   [Configuration](#configuration)
 
@@ -39,11 +39,11 @@ npm install mdast-react
 
 ## Programmatic
 
-### [mdast](https://github.com/wooorm/mdast#api).[use](https://github.com/wooorm/mdast#mdastuseplugin-options)(html, [options](#configuration))
+### [mdast](https://github.com/wooorm/mdast#api).[use](https://github.com/wooorm/mdast#mdastuseplugin-options)(react, [options](#configuration))
 
 **Parameters**
 
-*   `html` — This plugin;
+*   `react` — This plugin;
 *   `options` (`Object?`) — See [below](#configuration).
 
 Let’s say `example.js` looks as follows:
