@@ -6,7 +6,7 @@
   "dependencies": {
     "budo": "^4.1.0",
     "mdast": "^0.26.1",
-    "mdast-react": "^0.1.0",
+    "mdast-react": "^0.1.1",
     "react": "^0.13.3"
   },
   "devDependencies": {
