@@ -237,6 +237,37 @@ describe('mdast-react()', function () {
             reactRenderer(mdast());
         });
     });
+
+    it('should use consistent React keys on multiple renders', function() {
+        function extractKeys(reactElement) {
+            var keys = [];
+            if (reactElement.key != null) {
+                keys = keys.concat(reactElement.key);
+            }
+
+            if (reactElement.props != null) {
+                var childKeys = [];
+                React.Children.forEach(reactElement.props.children, function(child) {
+                    childKeys = childKeys.concat(extractKeys(child));
+                });
+
+                keys = keys.concat(childKeys);
+            }
+
+            return keys;
+        }
+
+        function reactKeys(text) {
+            var vdom = mdast.use(reactRenderer, {}).process(markdown, {});
+            return extractKeys(vdom);
+        }
+
+        var markdown = '# A **bold** heading';
+        var keys1 = reactKeys(markdown);
+        var keys2 = reactKeys(markdown);
+
+        assert.deepEqual(keys1, keys2);
+    });
 });
 
 /**

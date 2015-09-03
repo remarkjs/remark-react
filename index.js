@@ -38,6 +38,8 @@ function plugin(mdast, options) {
         file.extension = 'html';
 
         MarkdownCompiler.apply(this, [file, options]);
+
+        this.reactKeyCounter = 0;
     }
 
     ReactCompiler.prototype = proto;
