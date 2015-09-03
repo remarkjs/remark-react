@@ -1,9 +1,4 @@
----
-mdast:
-  setext: true
----
+# 0.1.2
 
-<!--lint disable no-multiple-toplevel-headings -->
-
-0.1.0 / 2015-06-21
-==================
+* Fix sequential key ordering so that server-side renders
+  of Markdown will match client-side binding
