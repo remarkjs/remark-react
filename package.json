@@ -1,6 +1,6 @@
 {
   "name": "mdast-react",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Compile Markdown to React with mdast",
   "license": "MIT",
   "keywords": [
