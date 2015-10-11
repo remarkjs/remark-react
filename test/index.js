@@ -8,6 +8,7 @@
 
 var path = require('path');
 var React = require('react');
+var ReactDOM = require('react-dom/server');
 var fs = require('fs');
 var assert = require('assert');
 var mdast = require('mdast');
@@ -16,7 +17,7 @@ var toc = require('mdast-toc');
 var github = require('mdast-github');
 var commentConfig = require('mdast-comment-config');
 var commonmark = require('commonmark.json');
-var File = require('mdast/lib/file');
+var File = require('vfile');
 var reactRenderer = require('..');
 
 /*
@@ -196,7 +197,7 @@ commonmark.forEach(function (test, position) {
  */
 function process(file, config) {
     var vdom = mdast.use(reactRenderer, config).process(file, config);
-    return React.renderToStaticMarkup(vdom);
+    return ReactDOM.renderToStaticMarkup(vdom);
 }
 
 /**
