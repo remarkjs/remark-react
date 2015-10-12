@@ -1,0 +1,9 @@
+{
+  "name": "v0.13",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "react": "0.14.x",
+    "react-dom": "0.14.x"
+  }
+}

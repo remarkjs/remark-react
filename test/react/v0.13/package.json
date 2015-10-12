@@ -1,0 +1,8 @@
+{
+  "name": "v0.13",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "react": "0.13.x"
+  }
+}
