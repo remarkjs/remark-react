@@ -7,8 +7,6 @@
  */
 
 var path = require('path');
-var React = require('react');
-var ReactDOM = require('react-dom/server');
 var fs = require('fs');
 var assert = require('assert');
 var mdast = require('mdast');
@@ -40,6 +38,7 @@ var join = path.join;
 var basename = path.basename;
 var extname = path.extname;
 var dirname = path.dirname;
+var relative = path.relative;
 
 /**
  * Create a `File` from a `filePath`.
@@ -60,102 +59,6 @@ function toFile(filePath, contents) {
     });
 }
 
-/*
- * Constants.
- */
-
-var INTEGRATION_MAP = {
-    'github': github,
-    'yaml-config': yamlConfig,
-    'toc': toc,
-    'comment-config': commentConfig
-};
-
-var INTEGRATION_ROOT = join(__dirname, 'integrations');
-var FIXTURE_ROOT = join(__dirname, 'fixtures');
-
-var CMARK_OPTIONS = {
-    'entities': 'escape',
-    'commonmark': true,
-    'yaml': false,
-    'xhtml': true
-};
-
-/*
- * List of CommonMark tests I dissagree with.
- * For reasoning, see `doc/commonmark.md`.
- *
- * Note that these differences have to do with not
- * puting more time into features which IMHO produce
- * less quality HTML. So if you’d like to write the
- * features, I’ll gladly merge!
- */
-
-var CMARK_IGNORE = [
-    /*
-     * Exception 1.
-     */
-
-    247,
-    248,
-
-    /*
-     * Exception 2.
-     */
-    3,
-    50,
-    76,
-    77,
-    80,
-    86,
-    89,
-    98,
-    118,
-    176,
-    230,
-    231,
-    233,
-    236,
-    257,
-    258,
-    261,
-    262,
-    263,
-    264,
-    265,
-    266,
-    267,
-    268,
-    269,
-    270,
-    395,
-    396,
-    433,
-    445,
-    520,
-    522,
-    551,
-
-    /*
-     * Exception 3.
-     */
-    428,
-    477,
-    478,
-    479,
-    480,
-    481,
-    489,
-    493
-];
-
-/*
- * Fixtures.
- */
-
-var fixtures = fs.readdirSync(FIXTURE_ROOT);
-var integrations = fs.readdirSync(INTEGRATION_ROOT);
-
 /**
  * Check if `filePath` is hidden.
  *
@@ -166,212 +69,136 @@ function isHidden(filePath) {
     return filePath.indexOf('.') !== 0;
 }
 
-/*
- * Gather fixtures.
- */
+['v0.13', 'v0.14'].forEach(function (reactVersion) {
+    var React = require(path.join(__dirname, 'react', reactVersion));
 
-fixtures = fixtures.filter(isHidden);
-integrations = integrations.filter(isHidden);
+    /*
+     * Fixtures.
+     */
 
-/*
- * CommonMark.
- */
+    var FIXTURE_ROOT = join(__dirname, 'react', reactVersion, 'fixtures');
+    var fixtures = fs.readdirSync(FIXTURE_ROOT);
+    fixtures = fixtures.filter(isHidden);
 
-var section;
-var start;
 
-commonmark.forEach(function (test, position) {
-    if (section !== test.section) {
-        section = test.section;
-        start = position;
+    /**
+     * Shortcut to process.
+     *
+     * @param {File} file
+     * @return {string}
+     */
+    function process(file, config) {
+        var vdom = mdast.use(reactRenderer, config).process(file, config);
+        return React.renderToStaticMarkup(vdom);
     }
 
-    test.relative = position - start + 1;
-});
+    /**
+     * Assert two strings.
+     *
+     * @param {string} actual
+     * @param {string} expected
+     * @param {boolean?} [silent]
+     * @return {Error?} - When silent and not equal.
+     * @throws {Error} - When not silent and not equal.
+     */
+    function assertion(actual, expected, silent) {
+        actual = actual;
+        expected = expected;
+        try {
+            assert(actual === expected);
+        } catch (exception) {
+            exception.expected = expected;
+            exception.actual = actual;
 
-/**
- * Shortcut to process.
- *
- * @param {File} file
- * @return {string}
- */
-function process(file, config) {
-    var vdom = mdast.use(reactRenderer, config).process(file, config);
-    return ReactDOM.renderToStaticMarkup(vdom);
-}
+            if (silent) {
+                return exception;
+            }
 
-/**
- * Assert two strings.
- *
- * @param {string} actual
- * @param {string} expected
- * @param {boolean?} [silent]
- * @return {Error?} - When silent and not equal.
- * @throws {Error} - When not silent and not equal.
- */
-function assertion(actual, expected, silent) {
-    try {
-        assert(actual === expected);
-    } catch (exception) {
-        exception.expected = expected;
-        exception.actual = actual;
+            throw exception;
+        }
+    }
 
-        if (silent) {
-            return exception;
+    /*
+     * Tests.
+     */
+
+    describe('on React ' + reactVersion, function () {
+        describe('mdast-react()', function () {
+            it('should be a function', function () {
+                assert(typeof reactRenderer === 'function');
+            });
+
+            it('should not throw if not passed options', function () {
+                assert.doesNotThrow(function () {
+                    reactRenderer(mdast());
+                });
+            });
+
+            it('should use consistent React keys on multiple renders', function() {
+                function extractKeys(reactElement) {
+                    var keys = [];
+                    if (reactElement.key != null) {
+                        keys = keys.concat(reactElement.key);
+                    }
+
+                    if (reactElement.props != null) {
+                        var childKeys = [];
+                        React.Children.forEach(reactElement.props.children, function(child) {
+                            childKeys = childKeys.concat(extractKeys(child));
+                        });
+
+                        keys = keys.concat(childKeys);
+                    }
+
+                    return keys;
+                }
+
+                function reactKeys(text) {
+                    var vdom = mdast.use(reactRenderer, {createElement: React.createElement}).process(markdown, {});
+                    return extractKeys(vdom);
+                }
+
+                var markdown = '# A **bold** heading';
+                var keys1 = reactKeys(markdown);
+                var keys2 = reactKeys(markdown);
+
+                assert.deepEqual(keys1, keys2);
+            });
+        });
+
+        /**
+         * Describe a fixture.
+         *
+         * @param {string} fixture
+         */
+        function describeFixture(fixture) {
+            it('should work on `' + fixture + '`', function () {
+                var filepath = join(FIXTURE_ROOT, fixture);
+                var output = read(join(filepath, 'output.html'), 'utf-8');
+                var input = read(join(filepath, 'input.md'), 'utf-8');
+                var config = join(filepath, 'config.json');
+                var file = toFile(fixture + '.md', input);
+                var result;
+
+                config = exists(config) ? JSON.parse(read(config, 'utf-8')) : {};
+                config.createElement = React.createElement;
+                result = process(file, config);
+
+                if (global.process.env.UPDATE) {
+                    write(join(filepath, 'output.html'), result);
+                }
+
+                assertion(result, output);
+            });
         }
 
-        throw exception;
-    }
-}
 
-/*
- * Tests.
- */
+        /*
+         * Assert fixtures.
+         */
 
-describe('mdast-react()', function () {
-    it('should be a function', function () {
-        assert(typeof reactRenderer === 'function');
-    });
-
-    it('should not throw if not passed options', function () {
-        assert.doesNotThrow(function () {
-            reactRenderer(mdast());
+        describe('Fixtures', function () {
+            fixtures.forEach(describeFixture);
         });
     });
-
-    it('should use consistent React keys on multiple renders', function() {
-        function extractKeys(reactElement) {
-            var keys = [];
-            if (reactElement.key != null) {
-                keys = keys.concat(reactElement.key);
-            }
-
-            if (reactElement.props != null) {
-                var childKeys = [];
-                React.Children.forEach(reactElement.props.children, function(child) {
-                    childKeys = childKeys.concat(extractKeys(child));
-                });
-
-                keys = keys.concat(childKeys);
-            }
-
-            return keys;
-        }
-
-        function reactKeys(text) {
-            var vdom = mdast.use(reactRenderer, {}).process(markdown, {});
-            return extractKeys(vdom);
-        }
-
-        var markdown = '# A **bold** heading';
-        var keys1 = reactKeys(markdown);
-        var keys2 = reactKeys(markdown);
-
-        assert.deepEqual(keys1, keys2);
-    });
 });
-
-/**
- * Describe a fixture.
- *
- * @param {string} fixture
- */
-function describeFixture(fixture) {
-    it('should work on `' + fixture + '`', function () {
-        var filepath = join(FIXTURE_ROOT, fixture);
-        var output = read(join(filepath, 'output.html'), 'utf-8');
-        var input = read(join(filepath, 'input.md'), 'utf-8');
-        var config = join(filepath, 'config.json');
-        var file = toFile(fixture + '.md', input);
-        var result;
-
-        config = exists(config) ? JSON.parse(read(config, 'utf-8')) : {};
-        result = process(file, config);
-
-        if (global.process.env.UPDATE) {
-            write(join(filepath, 'output.html'), result);
-        }
-
-        assertion(result, output);
-    });
-}
-
-/**
- * Describe an integration.
- *
- * @param {string} integration
- */
-// function describeIntegration(integration) {
-//     it('should work on `' + integration + '`', function () {
-//         var filepath = join(INTEGRATION_ROOT, integration);
-//         var output = read(join(filepath, 'output.html'), 'utf-8');
-//         var input = read(join(filepath, 'input.md'), 'utf-8');
-//         var config = join(filepath, 'config.json');
-//         var file = toFile(integration + '.md', input);
-//         var result;
-//
-//         config = exists(config) ? JSON.parse(read(config, 'utf-8')) : {};
-//
-//         result = mdast
-//             .use(html, config)
-//             .use(INTEGRATION_MAP[integration], config)
-//             .process(file, config);
-//
-//         assertion(result, output);
-//     });
-// }
-
-/**
- * Describe a CommonMark test.
- *
- * @param {string} test
- * @param {number} n
- */
-// function describeCommonMark(test, n) {
-//     var name = test.section + ' ' + test.relative;
-//     var file = toFile(name + '.md', test.markdown);
-//     var result = process(file, CMARK_OPTIONS);
-//     var err;
-//     var fn;
-//
-//     n = n + 1;
-//
-//     err = assertion(result, test.html, true);
-//
-//     fn = it;
-//
-//     if (CMARK_IGNORE.indexOf(n) !== -1 || ignoreCommonMarkException && err) {
-//         fn = fn.skip;
-//     }
-//
-//     fn('(' + n + ') should work on ' + name, function () {
-//         if (err) {
-//             throw err;
-//         }
-//     });
-// }
-
-/*
- * Assert fixtures.
- */
-
-describe('Fixtures', function () {
-    // describeFixture('list');
-    fixtures.forEach(describeFixture);
-});
-
-/*
- * Assert CommonMark.
- */
-
-// describe('CommonMark', function () {
-//     commonmark.forEach(describeCommonMark);
-// });
-//
-// /*
-//  * Assert integrations.
-//  */
-//
-// describe('Integrations', function () {
-//     integrations.forEach(describeIntegration);
-// });
