@@ -1,0 +1,8 @@
+<div><p><span>Lots of entities are supported:  , &amp;, ©, Æ,
+Ď, ¾, ℋ, ⅆ,
+∲, &amp;c.  Even some entities with a missing
+terminal semicolon are parsed correctly (as per the HTML5 spec):
+ÿ, á, ©, and &amp;.</span></p><p><span>However, &amp;MadeUpEntities; are kept in the document.</span></p><p><span>Entities even work in the language flag of fenced code blocks:</span></p><pre><code class="language-some—language">alert(&#x27;Hello&#x27;);
+</code></pre><p><span>Or in </span><a href="~/some%E2%80%94file" title="in some plæce"><span>línks</span></a></p><p><span>Or in </span><img src="~/an%E2%80%93image.png" alt="ímages" title="© Someone"/></p><p><span>But, entities are not interpreted in </span><code>inline c&amp;amp;ouml;de</code><span>, or in
+code blocks:</span></p><pre><code>C&amp;Ouml;DE block.
+</code></pre></div>
