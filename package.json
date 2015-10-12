@@ -24,8 +24,6 @@
     "mdast-toc": "^1.1.0",
     "mdast-yaml-config": "^1.0.0",
     "mocha": "^2.0.0",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
     "vfile": "^1.1.0"
   },
   "files": [
@@ -42,8 +40,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "mdast": ">=0.25.0",
-    "react": ">=0.14.0"
+    "mdast": ">=0.25.0"
   },
   "repository": {
     "type": "git",
@@ -55,7 +52,7 @@
     "lint-api": "eslint .",
     "lint-style": "jscs --reporter inline .",
     "make": "npm run lint && npm run test-coverage",
-    "test": "npm run test-api",
+    "test": "cd test/react/v0.13 && npm install && cd ../v0.14 && npm install && cd ../.. && npm run test-api",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
     "test-coveralls": "istanbul cover _mocha --report lcovonly -- --check-leaks test/index.js",
