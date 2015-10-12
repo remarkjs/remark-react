@@ -5,12 +5,16 @@
  */
 
 var compilers = require('./lib/compilers.js');
+try {
+    var createElement = require('react').createElement;
+} catch (e) { }
 
 /**
  * Attach an HTML compiler.
  *
  * @param {MDAST} mdast
  * @param {Object?} [options]
+ * @param {Function?} [options.createElement]
  */
 function plugin(mdast, options) {
     var MarkdownCompiler = mdast.Compiler;
@@ -51,6 +55,7 @@ function plugin(mdast, options) {
     for (key in compilers) {
         proto[key] = compilers[key];
     }
+    proto.createElement = options && options.createElement || createElement;
 
     mdast.Compiler = ReactCompiler;
 }
