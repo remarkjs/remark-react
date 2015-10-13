@@ -109,7 +109,7 @@ too. An example `.mdastrc` file could look as follows:
 ```json
 {
   "plugins": {
-    "html": {
+    "react": {
         "sanitize": false,
         "xhtml": false,
         "entities": "numbers"
@@ -121,7 +121,7 @@ too. An example `.mdastrc` file could look as follows:
 }
 ```
 
-Where the object at `plugins.html` are the options for **mdast-html**.
+Where the object at `plugins.react` are the options for **mdast-react**.
 The object at `settings` determines how **mdast** parses markdown code.
 Read more about the latter on [**mdast**’s readme](https://github.com/wooorm/mdast#mdastprocessvalue-options-done).
 
@@ -155,7 +155,7 @@ real world. Read more on some of the reasoning in
 *   ...and [more](https://github.com/wooorm/mdast/blob/master/doc/plugins.md#list-of-plugins).
 
 All [**mdast** nodes](https://github.com/wooorm/mdast/blob/master/doc/nodes.md)
-can be compiled to HTML.  In addition, **mdast-html** looks for an
+can be compiled to HTML.  In addition, **mdast-react** looks for an
 `attributes` object on each node it compiles and adds the found properties
 as HTML attributes on the compiled tag.
 
