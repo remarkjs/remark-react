@@ -89,6 +89,18 @@ All options, including the `options` object itself, are optional:
 *   `sanitize` (`boolean`, default: `false`)
     — Whether or not to allow the use of HTML inside markdown.
 
+*   `mdastReactComponents` (`object`, default: `undefined`)
+    — Provides a way to override default elements (`<a>`, `<p>`, etc)
+    by defining an object comprised of `element: Component` key-value
+    pairs. For example, to output `<MyLink>` components instead of
+    `<a>`, and `<MyParagraph>` instead of `<p>`:
+    ```js
+    mdastReactComponents: {
+      a: MyLink,
+      p: MyParagraph
+    }
+    ```
+
 These can passed to `mdast.use()` as a second argument.
 
 You can define these in `.mdastrc` or `package.json` [files](https://github.com/wooorm/mdast/blob/master/doc/mdastrc.5.md)
