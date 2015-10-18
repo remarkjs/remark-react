@@ -34,6 +34,7 @@ function plugin(mdast, options) {
     proto.options.xhtml = false;
     proto.options.sanitize = false;
     proto.options.entities = 'true';
+    proto.options.paragraphBlockquotes = true;
 
     /**
      * Extensible constructor.
