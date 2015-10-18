@@ -89,6 +89,9 @@ All options, including the `options` object itself, are optional:
 *   `sanitize` (`boolean`, default: `false`)
     — Whether or not to allow the use of HTML inside markdown.
 
+*   `paragraphBlockquotes` (`boolean`, default: `true`)
+    — Wraps content of `<blockquote>` in a `<p>` element.
+
 *   `mdastReactComponents` (`object`, default: `undefined`)
     — Provides a way to override default elements (`<a>`, `<p>`, etc)
     by defining an object comprised of `element: Component` key-value
@@ -103,7 +106,7 @@ All options, including the `options` object itself, are optional:
 
 These can passed to `mdast.use()` as a second argument.
 
-You can define these in `.mdastrc` or `package.json` [files](https://github.com/wooorm/mdast/blob/master/doc/mdastrc.5.md)
+Options other than `mdastReactComponents` can be defined in `.mdastrc` or `package.json` [files](https://github.com/wooorm/mdast/blob/master/doc/mdastrc.5.md)
 too. An example `.mdastrc` file could look as follows:
 
 ```json
