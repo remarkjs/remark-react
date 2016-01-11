@@ -1,10 +1,10 @@
-<!--mdast xhtml="true" -->
+<!--remark xhtml="true" -->
 
 * * *
 
 ![Favicon](http://exaple.com/fav.ico "Example Favicon")
 
-<!--mdast xhtml="false" -->
+<!--remark xhtml="false" -->
 
 * * *
 

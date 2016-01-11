@@ -1,6 +1,6 @@
 {
-  "name": "mdast-react",
-  "description": "Compile Markdown to React with mdast",
+  "name": "remark-react",
+  "description": "Compile Markdown to React with remark",
   "version": "0.3.0",
   "author": {
     "name": "Titus Wormer",
@@ -17,12 +17,12 @@
     "istanbul": "^0.3.0",
     "jscs": "^2.3.0",
     "jscs-jsdoc": "^1.0.0",
-    "mdast": "^1.0.0",
-    "mdast-comment-config": "^1.0.0",
-    "mdast-github": "^1.0.0",
-    "mdast-lint": "^1.1.1",
-    "mdast-toc": "^1.1.0",
-    "mdast-yaml-config": "^1.0.0",
+    "remark": "^3.0.0",
+    "remark-comment-config": "^2.0.0",
+    "remark-github": "^2.0.0",
+    "remark-lint": "^2.0.0",
+    "remark-toc": "^2.0.0",
+    "remark-yaml-config": "^2.0.0",
     "mocha": "^2.0.0",
     "vfile": "^1.1.0"
   },
@@ -35,19 +35,19 @@
     "compile",
     "html",
     "markdown",
-    "mdast",
+    "remark",
     "stringify"
   ],
   "license": "MIT",
   "peerDependencies": {
-    "mdast": ">=0.25.0"
+    "remark": ">=0.25.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mapbox/mdast-react.git"
+    "url": "https://github.com/mapbox/remark-react.git"
   },
   "scripts": {
-    "build-md": "mdast . --output --quiet",
+    "build-md": "remark . --output --quiet",
     "lint": "npm run lint-api && npm run lint-style",
     "lint-api": "eslint .",
     "lint-style": "jscs --reporter inline .",

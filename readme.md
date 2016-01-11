@@ -1,14 +1,14 @@
-# mdast-react
+# remark-react
 
-[![Build Status](https://travis-ci.org/mapbox/mdast-react.svg?branch=master)](https://travis-ci.org/mapbox/mdast-react)
+[![Build Status](https://travis-ci.org/mapbox/remark-react.svg?branch=master)](https://travis-ci.org/mapbox/remark-react)
 
-**mdast-react** compiles markdown to React.  Built on [**mdast**](https://github.com/wooorm/mdast),
+**remark-react** compiles markdown to React.  Built on [**remark**](https://github.com/wooorm/remark),
 an extensively tested and pluggable parser.
 
 **Why?** Using innerHTML and [dangerouslySetInnerHTML](https://facebook.github.io/react/tips/dangerously-set-inner-html.html) in
 [React.js](http://facebook.github.io/react/) is a common cause of [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting)
 attacks: user input can include script tags and other kinds of active
-content that reaches across domains and harms security. mdast-react
+content that reaches across domains and harms security. remark-react
 builds a DOM in React, using [React.createElement](https://facebook.github.io/react/docs/top-level-api.html):
 this means that you can display parsed & formatted Markdown content
 in an application without using `dangerouslySetInnerHTML`.
@@ -18,7 +18,7 @@ in an application without using `dangerouslySetInnerHTML`.
 [npm](https://docs.npmjs.com/cli/install):
 
 ```bash
-npm install mdast-react
+npm install remark-react
 ```
 
 ## Table of Contents
@@ -27,7 +27,7 @@ npm install mdast-react
 
 *   [Programmatic](#programmatic)
 
-    *   [mdast.use(react, options)](#mdastusereact-options)
+    *   [remark.use(react, options)](#remarkusereact-options)
 
 *   [Configuration](#configuration)
 
@@ -39,7 +39,7 @@ npm install mdast-react
 
 ## Programmatic
 
-### [mdast](https://github.com/wooorm/mdast#api).[use](https://github.com/wooorm/mdast#mdastuseplugin-options)(react, [options](#configuration))
+### [remark](https://github.com/wooorm/remark#api).[use](https://github.com/wooorm/remark#remarkuseplugin-options)(react, [options](#configuration))
 
 **Parameters**
 
@@ -50,8 +50,8 @@ Let’s say `example.js` looks as follows:
 
 ```js
 var React = require('react'),
-    mdast = require('mdast'),
-    reactRenderer = require('mdast-react');
+    remark = require('remark'),
+    reactRenderer = require('remark-react');
 
 var App = React.createClass({
     getInitialState() {
@@ -66,7 +66,7 @@ var App = React.createClass({
                 value={this.state.text}
                 onChange={this.onChange} />
             <div id='preview'>
-                {mdast().use(reactRenderer).process(this.state.text)}
+                {remark().use(reactRenderer).process(this.state.text)}
             </div>
         </div>);
     }
@@ -89,22 +89,22 @@ All options, including the `options` object itself, are optional:
 *   `sanitize` (`boolean`, default: `false`)
     — Whether or not to allow the use of HTML inside markdown.
 
-*   `mdastReactComponents` (`object`, default: `undefined`)
+*   `remarkReactComponents` (`object`, default: `undefined`)
     — Provides a way to override default elements (`<a>`, `<p>`, etc)
     by defining an object comprised of `element: Component` key-value
     pairs. For example, to output `<MyLink>` components instead of
     `<a>`, and `<MyParagraph>` instead of `<p>`:
     ```js
-    mdastReactComponents: {
+    remarkReactComponents: {
       a: MyLink,
       p: MyParagraph
     }
     ```
 
-These can passed to `mdast.use()` as a second argument.
+These can passed to `remark.use()` as a second argument.
 
-You can define these in `.mdastrc` or `package.json` [files](https://github.com/wooorm/mdast/blob/master/doc/mdastrc.5.md)
-too. An example `.mdastrc` file could look as follows:
+You can define these in `.remarkrc` or `package.json` [files](https://github.com/wooorm/remark/blob/master/doc/remarkrc.5.md)
+too. An example `.remarkrc` file could look as follows:
 
 ```json
 {
@@ -121,14 +121,14 @@ too. An example `.mdastrc` file could look as follows:
 }
 ```
 
-Where the object at `plugins.react` are the options for **mdast-react**.
-The object at `settings` determines how **mdast** parses markdown code.
-Read more about the latter on [**mdast**’s readme](https://github.com/wooorm/mdast#mdastprocessvalue-options-done).
+Where the object at `plugins.react` are the options for **remark-react**.
+The object at `settings` determines how **remark** parses markdown code.
+Read more about the latter on [**remark**’s readme](https://github.com/wooorm/remark#remarkprocessvalue-options-done).
 
 ## CommonMark
 
 > You still need to set `commonmark: true` in
-> [**mdast**’s options](https://github.com/wooorm/mdast#mdastprocessvalue-options-done)
+> [**remark**’s options](https://github.com/wooorm/remark#remarkprocessvalue-options-done)
 
 [CommonMark](http://commonmark.org) support is a goal but not (yet) a
 necessity. There are some (roughly 115 of 550, relating to inline
@@ -140,22 +140,22 @@ real world. Read more on some of the reasoning in
 
 ## Integrations
 
-**mdast-react** works great with:
+**remark-react** works great with:
 
-*   [**mdast-toc**](https://github.com/wooorm/mdast-toc), which generates
+*   [**remark-toc**](https://github.com/wooorm/remark-toc), which generates
     tables of contents;
 
-*   [**mdast-github**](https://github.com/wooorm/mdast-github), which generates
+*   [**remark-github**](https://github.com/wooorm/remark-github), which generates
     references to GitHub issues, PRs, users, and more;
 
-*   [**mdast-comment-config**](https://github.com/wooorm/mdast-comment-config)
-    and [**mdast-yaml-config**](https://github.com/wooorm/mdast-yaml-config),
+*   [**remark-comment-config**](https://github.com/wooorm/remark-comment-config)
+    and [**remark-yaml-config**](https://github.com/wooorm/remark-yaml-config),
     which specify how HTML is compiled in the document itself;
 
-*   ...and [more](https://github.com/wooorm/mdast/blob/master/doc/plugins.md#list-of-plugins).
+*   ...and [more](https://github.com/wooorm/remark/blob/master/doc/plugins.md#list-of-plugins).
 
-All [**mdast** nodes](https://github.com/wooorm/mdast/blob/master/doc/nodes.md)
-can be compiled to HTML.  In addition, **mdast-react** looks for an
+All [**remark** nodes](https://github.com/wooorm/remark/blob/master/doc/nodes.md)
+can be compiled to HTML.  In addition, **remark-react** looks for an
 `attributes` object on each node it compiles and adds the found properties
 as HTML attributes on the compiled tag.
 

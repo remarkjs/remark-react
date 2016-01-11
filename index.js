@@ -12,12 +12,12 @@ try {
 /**
  * Attach an HTML compiler.
  *
- * @param {MDAST} mdast
+ * @param {MDAST} remark
  * @param {Object?} [options]
  * @param {Function?} [options.createElement]
  */
-function plugin(mdast, options) {
-    var MarkdownCompiler = mdast.Compiler;
+function plugin(remark, options) {
+    var MarkdownCompiler = remark.Compiler;
     var ancestor = MarkdownCompiler.prototype;
     var proto;
     var key;
@@ -57,7 +57,7 @@ function plugin(mdast, options) {
     }
     proto.createElement = options && options.createElement || createElement;
 
-    mdast.Compiler = ReactCompiler;
+    remark.Compiler = ReactCompiler;
 }
 
 /*

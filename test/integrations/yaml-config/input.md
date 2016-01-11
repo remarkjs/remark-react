@@ -1,5 +1,5 @@
 ---
-mdast:
+remark:
   xhtml: true
 ---
 

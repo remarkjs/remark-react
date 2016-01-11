@@ -9,11 +9,11 @@
 var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
-var mdast = require('mdast');
-var yamlConfig = require('mdast-yaml-config');
-var toc = require('mdast-toc');
-var github = require('mdast-github');
-var commentConfig = require('mdast-comment-config');
+var remark = require('remark');
+var yamlConfig = require('remark-yaml-config');
+var toc = require('remark-toc');
+var github = require('remark-github');
+var commentConfig = require('remark-comment-config');
 var commonmark = require('commonmark.json');
 var File = require('vfile');
 var reactRenderer = require('..');
@@ -88,7 +88,7 @@ function isHidden(filePath) {
      * @return {string}
      */
     function process(file, config) {
-        var vdom = mdast.use(reactRenderer, config).process(file, config);
+        var vdom = remark.use(reactRenderer, config).process(file, config);
         return React.renderToStaticMarkup(vdom);
     }
 
@@ -123,14 +123,14 @@ function isHidden(filePath) {
      */
 
     describe('on React ' + reactVersion, function () {
-        describe('mdast-react()', function () {
+        describe('remark-react()', function () {
             it('should be a function', function () {
                 assert(typeof reactRenderer === 'function');
             });
 
             it('should not throw if not passed options', function () {
                 assert.doesNotThrow(function () {
-                    reactRenderer(mdast());
+                    reactRenderer(remark());
                 });
             });
 
@@ -154,7 +154,7 @@ function isHidden(filePath) {
                 }
 
                 function reactKeys(text) {
-                    var vdom = mdast.use(reactRenderer, {createElement: React.createElement}).process(markdown, {});
+                    var vdom = remark.use(reactRenderer, {createElement: React.createElement}).process(markdown, {});
                     return extractKeys(vdom);
                 }
 
