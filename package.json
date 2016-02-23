@@ -52,7 +52,7 @@
     "lint-api": "eslint .",
     "lint-style": "jscs --reporter inline .",
     "make": "npm run lint && npm run test-coverage",
-    "sub-install": "cd test/react/v0.13 && npm install && cd ../v0.14 && npm install && cd ../..",
+    "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
     "test": "npm run sub-install && npm run test-api",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
