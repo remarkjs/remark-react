@@ -1,3 +1,7 @@
+# 2.0.0
+
+* Update to Remark 4
+
 # 0.3.0
 
 * Added `mdastReactComponents` option #[9](https://github.com/mapbox/mdast-react/pull/9)
