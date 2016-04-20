@@ -1,12 +1,12 @@
 {
-  "name": "mdast-react",
-  "version": "1.0.0",
-  "description": "",
+  "name": "remark-react",
+  "version": "2.0.0",
+  "description": "Compile Markdown to React with remark",
   "main": "index.js",
   "dependencies": {
     "budo": "^4.1.0",
-    "mdast": "^0.26.1",
-    "mdast-react": "^0.1.1",
+    "remark": "^4.1.1",
+    "remark-react": "2.0.0",
     "react": "^0.13.3"
   },
   "devDependencies": {
@@ -24,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mapbox/mdast-react.git"
+    "url": "git+https://github.com/mapbox/remark-react.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mapbox/mdast-react/issues"
+    "url": "https://github.com/mapbox/remark-react/issues"
   },
-  "homepage": "https://github.com/mapbox/mdast-react#readme"
+  "homepage": "https://github.com/mapbox/remark-react#readme.md"
 }

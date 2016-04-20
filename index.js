@@ -1,6 +1,6 @@
 var React = require('react'),
-    mdast = require('mdast'),
-    reactRenderer = require('mdast-react');
+    remark = require('remark'),
+    reactRenderer = require('remark-react');
 
 var App = React.createClass({
     getInitialState() {
@@ -15,7 +15,7 @@ var App = React.createClass({
                 value={this.state.text}
                 onChange={this.onChange} />
             <div id='preview'>
-                {mdast().use(reactRenderer).process(this.state.text)}
+                {remark().use(reactRenderer).process(this.state.text)}
             </div>
         </div>);
     }
