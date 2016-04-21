@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "babelify": "^6.1.2",
-    "browserify": "^10.2.4"
+    "browserify": "^13.0.0"
   },
   "browserify": {
     "transform": [
@@ -31,5 +31,5 @@
   "bugs": {
     "url": "https://github.com/mapbox/remark-react/issues"
   },
-  "homepage": "https://github.com/mapbox/remark-react#readme.md"
+  "homepage": "https://github.com/mapbox/remark-react#readme"
 }
