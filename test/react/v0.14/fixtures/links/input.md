@@ -6,6 +6,8 @@
 
 [](<> "Example Link")
 
+[test](javascript://%0d%0aalert(1))
+
 [](<>)
 
 []()
