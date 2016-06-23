@@ -23,15 +23,11 @@ npm install remark-react
 
 ## Table of Contents
 
-*   [Command line](#command-line)
-
 *   [Programmatic](#programmatic)
 
     *   [remark.use(react, options)](#remarkusereact-options)
 
 *   [Configuration](#configuration)
-
-*   [CommonMark](#commonmark)
 
 *   [Integrations](#integrations)
 
@@ -79,21 +75,12 @@ React.render(<App />, document.getElementById('app'));
 
 All options, including the `options` object itself, are optional:
 
-*   `entities` (`true`, `'numbers'`, or `'escape'`, default: `true`)
-    — How to encode non-ASCII and HTML-escape characters: the default
-    generates named entities (`&` > `&amp;`); `'numbers'` generates
-    numbered entities (`&` > `&#x26;`), and `'escape'` only encodes
-    characters which are required by HTML to be escaped: `&`, `<`, `>`,
-    `"`, `'`, and `` ` ``, leaving non-ASCII characters untouched.
-
-*   `sanitize` (`boolean`, default: `false`)
-    — Whether or not to allow the use of HTML inside markdown.
-
 *   `remarkReactComponents` (`object`, default: `undefined`)
     — Provides a way to override default elements (`<a>`, `<p>`, etc)
     by defining an object comprised of `element: Component` key-value
     pairs. For example, to output `<MyLink>` components instead of
     `<a>`, and `<MyParagraph>` instead of `<p>`:
+
     ```js
     remarkReactComponents: {
       a: MyLink,
@@ -103,41 +90,6 @@ All options, including the `options` object itself, are optional:
 
 These can passed to `remark.use()` as a second argument.
 
-You can define these in `.remarkrc` or `package.json` [files](https://github.com/wooorm/remark/blob/master/doc/remarkrc.5.md)
-too. An example `.remarkrc` file could look as follows:
-
-```json
-{
-  "plugins": {
-    "react": {
-        "sanitize": false,
-        "xhtml": false,
-        "entities": "numbers"
-    }
-  },
-  "settings": {
-    "commonmark": true
-  }
-}
-```
-
-Where the object at `plugins.react` are the options for **remark-react**.
-The object at `settings` determines how **remark** parses markdown code.
-Read more about the latter on [**remark**’s readme](https://github.com/wooorm/remark#remarkprocessvalue-options-done).
-
-## CommonMark
-
-> You still need to set `commonmark: true` in
-> [**remark**’s options](https://github.com/wooorm/remark#remarkprocessvalue-options-done)
-
-[CommonMark](http://commonmark.org) support is a goal but not (yet) a
-necessity. There are some (roughly 115 of 550, relating to inline
-precedence, lists, emphasis and strongness) issues which I’d like
-to cover in the future. Note that this sounds like a lot, but they
-have to do with obscure differences which do not often occur in the
-real world. Read more on some of the reasoning in
-[`doc/commonmark.md`](doc/commonmark.md).
-
 ## Integrations
 
 **remark-react** works great with:
@@ -145,12 +97,8 @@ real world. Read more on some of the reasoning in
 *   [**remark-toc**](https://github.com/wooorm/remark-toc), which generates
     tables of contents;
 
-*   [**remark-github**](https://github.com/wooorm/remark-github), which generates
-    references to GitHub issues, PRs, users, and more;
-
-*   [**remark-comment-config**](https://github.com/wooorm/remark-comment-config)
-    and [**remark-yaml-config**](https://github.com/wooorm/remark-yaml-config),
-    which specify how HTML is compiled in the document itself;
+*   [**remark-github**](https://github.com/wooorm/remark-github), which
+    generates references to GitHub issues, PRs, users, and more;
 
 *   ...and [more](https://github.com/wooorm/remark/blob/master/doc/plugins.md#list-of-plugins).
 

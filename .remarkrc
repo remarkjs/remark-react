@@ -2,8 +2,7 @@
   "plugins": [
     "lint",
     "github",
-    "toc",
-    "yaml-config"
+    "toc"
   ],
   "settings": {
     "bullet": "*"

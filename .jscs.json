@@ -1,30 +1,9 @@
 {
   "excludeFiles": [
-    "build/",
-    "components/",
     "coverage/",
     "node_modules/",
-    "build.js",
-    "lib/expression.js",
-    "mdast-html.js",
-    "mdast-html.min.js"
+    "test/react/"
   ],
-  "plugins": [
-    "jscs-jsdoc"
-  ],
-  "jsDoc": {
-    "checkAnnotations": "jsdoc3",
-    "checkParamNames": true,
-    "requireParamTypes": true,
-    "checkRedundantParams": true,
-    "checkReturnTypes": true,
-    "checkRedundantReturns": true,
-    "requireReturnTypes": true,
-    "checkTypes": "strictNativeCase",
-    "checkRedundantAccess": true,
-    "enforceExistence": true,
-    "requireHyphenBeforeDescription": true
-  },
   "jsDoc": {
     "checkAnnotations": "jsdoc3",
     "checkParamNames": true,
@@ -157,10 +136,5 @@
   "requireCapitalizedConstructors": true,
   "safeContextKeyword": "self",
   "requireDotNotation": true,
-  "disallowYodaConditions": true,
-  "validateJSDoc": {
-    "checkParamNames": true,
-    "checkRedundantParams": true,
-    "requireParamTypes": true
-  }
+  "disallowYodaConditions": true
 }

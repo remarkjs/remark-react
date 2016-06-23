@@ -12,7 +12,7 @@ try {
 /**
  * Attach an HTML compiler.
  *
- * @param {MDAST} remark
+ * @param {Unified} remark
  * @param {Object?} [options]
  * @param {Function?} [options.createElement]
  */
@@ -30,10 +30,6 @@ function plugin(remark, options) {
     ReactCompilerPrototype.prototype = ancestor;
 
     proto = new ReactCompilerPrototype();
-
-    proto.options.xhtml = false;
-    proto.options.sanitize = false;
-    proto.options.entities = 'true';
 
     /**
      * Extensible constructor.

@@ -10,10 +10,8 @@ var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
 var remark = require('remark');
-var yamlConfig = require('remark-yaml-config');
 var toc = require('remark-toc');
 var github = require('remark-github');
-var commentConfig = require('remark-comment-config');
 var commonmark = require('commonmark.json');
 var File = require('vfile');
 var reactRenderer = require('..');
@@ -88,7 +86,7 @@ function isHidden(filePath) {
      * @return {string}
      */
     function process(file, config) {
-        var vdom = remark.use(reactRenderer, config).process(file, config);
+        var vdom = remark().use(reactRenderer, config).process(file, config).contents;
         return React.renderToStaticMarkup(vdom);
     }
 
@@ -154,7 +152,7 @@ function isHidden(filePath) {
                 }
 
                 function reactKeys(text) {
-                    var vdom = remark.use(reactRenderer, {createElement: React.createElement}).process(markdown, {});
+                    var vdom = remark().use(reactRenderer, {createElement: React.createElement}).process(markdown, {}).contents;
                     return extractKeys(vdom);
                 }
 
