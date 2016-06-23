@@ -75,6 +75,18 @@ React.render(<App />, document.getElementById('app'));
 
 All options, including the `options` object itself, are optional:
 
+*   `sanitize` (`object`, default: `undefined`)
+    — Sanitation schema to use. Passed to
+    [hast-util-sanitize](https://github.com/wooorm/hast-util-sanitize).
+    The default schema, if none is passed, adheres to GitHub’s sanitation
+    rules.
+
+*   `prefix` (`string`, default: `h-`)
+    — React key.
+
+*   `createElement` (`Function`, default: `require('react').createElement`)
+    — Function to use to create elements.
+
 *   `remarkReactComponents` (`object`, default: `undefined`)
     — Provides a way to override default elements (`<a>`, `<p>`, etc)
     by defining an object comprised of `element: Component` key-value
@@ -102,7 +114,7 @@ These can passed to `remark.use()` as a second argument.
 
 *   ...and [more](https://github.com/wooorm/remark/blob/master/doc/plugins.md#list-of-plugins).
 
-All [**remark** nodes](https://github.com/wooorm/remark/blob/master/doc/nodes.md)
+All [**remark** nodes](https://github.com/wooorm/mdast)
 can be compiled to HTML.  In addition, **remark-react** looks for an
 `attributes` object on each node it compiles and adds the found properties
 as HTML attributes on the compiled tag.

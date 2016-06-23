@@ -16,7 +16,9 @@
     "Jeremy Stucki <jeremy@interactivethings.com>"
   ],
   "dependencies": {
-    "repeat-string": "^1.5.2"
+    "hast-to-hyperscript": "^2.0.1",
+    "hast-util-sanitize": "^1.0.0",
+    "mdast-util-to-hast": "^1.0.0"
   },
   "devDependencies": {
     "commonmark.json": "^0.23.0",
@@ -34,7 +36,6 @@
   },
   "files": [
     "index.js",
-    "lib/",
     "LICENSE"
   ],
   "keywords": [
