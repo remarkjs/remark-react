@@ -1,6 +1,2 @@
-build/
-components/
 coverage/
-build.js
-mdast-html.js
-mdast-html.min.js
+test/react/
