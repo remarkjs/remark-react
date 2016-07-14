@@ -162,6 +162,21 @@ function isHidden(filePath) {
 
                 assert.deepEqual(keys1, keys2);
             });
+
+            it('should use custom components', function() {
+                var markdown = '# Foo';
+
+                var vdom = remark().use(reactRenderer, {
+                    createElement: React.createElement,
+                    remarkReactComponents: {
+                        h1: function(props) {
+                            return React.createElement('h2', props)
+                        }
+                    }
+                }).process(markdown, {}).contents
+
+                assert.equal(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
+            });
         });
 
         /**
