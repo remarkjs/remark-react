@@ -34,6 +34,8 @@ function plugin(processor, options) {
     var settings = options || {};
     var createElement = settings.createElement || globalCreateElement;
     var components = settings.remarkReactComponents || {};
+    var clean = settings.sanitize !== false;
+    var scheme = clean && (typeof settings.sanitize !== 'boolean') ? settings.sanitize : null;
 
     /**
      * Wrapper around `createElement` to pass
@@ -73,14 +75,18 @@ function plugin(processor, options) {
      * @return {ReactElement} - React element.
      */
     function compile(node) {
-        var clean = sanitize({
+        var hast = {
             type: 'element',
             tagName: 'div',
             properties: {},
             children: toHAST(node).children
-        }, settings.sanitize);
+        };
 
-        return toH(h, clean, settings.prefix);
+        if (clean) {
+            hast = sanitize(hast, scheme);
+        }
+
+        return toH(h, hast, settings.prefix);
     }
 
     Compiler.prototype.compile = compile;

@@ -75,11 +75,11 @@ React.render(<App />, document.getElementById('app'));
 
 All options, including the `options` object itself, are optional:
 
-*   `sanitize` (`object`, default: `undefined`)
+*   `sanitize` (`object` or `boolean`, default: `undefined`)
     — Sanitation schema to use. Passed to
     [hast-util-sanitize](https://github.com/wooorm/hast-util-sanitize).
-    The default schema, if none is passed, adheres to GitHub’s sanitation
-    rules.
+    The default schema, if none or `true` is passed, adheres to GitHub’s
+    sanitation rules. If `false` is passed, it does not sanitize input.
 
 *   `prefix` (`string`, default: `h-`)
     — React key.
