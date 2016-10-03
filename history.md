@@ -1,5 +1,10 @@
 <!--lint disable no-multiple-toplevel-headings-->
 
+# 3.0.2
+
+* Fixes interpretation of the `sanitize` option, allowing users to pass
+  `false` to disable sanitization.
+
 # 2.1.0
 
 *   Only allows `http`, `mailto`, and `https` schemes for links.
