@@ -173,9 +173,20 @@ function isHidden(filePath) {
                             return React.createElement('h2', props)
                         }
                     }
-                }).process(markdown, {}).contents
+                }).process(markdown, {}).contents;
 
                 assert.equal(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
+            });
+
+            it("does not sanitize input when 'sanitize' option is set to false", function() {
+                var markdown = '```empty\n```';
+                var vdom = remark().use(reactRenderer, {
+                    createElement: React.createElement,
+                    sanitize: false
+                }).process(markdown, {}).contents;
+
+                // If sanitation were done, 'class' property should be removed.
+                assert.equal(React.renderToStaticMarkup(vdom), '<div><pre><code class="language-empty"></code></pre></div>');
             });
         });
 
