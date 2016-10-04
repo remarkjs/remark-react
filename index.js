@@ -36,6 +36,7 @@ function plugin(processor, options) {
     var components = settings.remarkReactComponents || {};
     var clean = settings.sanitize !== false;
     var scheme = clean && (typeof settings.sanitize !== 'boolean') ? settings.sanitize : null;
+    var toHastOptions = settings.toHast || {};
 
     /**
      * Wrapper around `createElement` to pass
@@ -79,7 +80,7 @@ function plugin(processor, options) {
             type: 'element',
             tagName: 'div',
             properties: {},
-            children: toHAST(node).children
+            children: toHAST(node, toHastOptions).children
         };
 
         if (clean) {
