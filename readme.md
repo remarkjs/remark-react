@@ -100,6 +100,11 @@ All options, including the `options` object itself, are optional:
     }
     ```
 
+*   `toHast` (`object`, default: `{}`)
+    — Provides options for transforming MDAST document to HAST.
+    Valid values for the object are `options` parameter of
+    [this API](https://github.com/rhysd/mdast-util-to-hast#api).
+
 These can passed to `remark.use()` as a second argument.
 
 ## Integrations
