@@ -188,6 +188,17 @@ function isHidden(filePath) {
                 // If sanitation were done, 'class' property should be removed.
                 assert.equal(React.renderToStaticMarkup(vdom), '<div><pre><code class="language-empty"></code></pre></div>');
             });
+
+            it('passes toHast options to inner toHAST() function', function() {
+                var markdown = '# Foo';
+
+                var vdom = remark().use(reactRenderer, {
+                    createElement: React.createElement,
+                    toHast: {allowDangerousHTML: true}
+                }).process(markdown, {}).contents;
+
+                assert.equal(React.renderToStaticMarkup(vdom), '<div><h1>Foo</h1></div>');
+            });
         });
 
         /**
