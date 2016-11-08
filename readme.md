@@ -124,6 +124,9 @@ can be compiled to HTML.  In addition, **remark-react** looks for an
 `attributes` object on each node it compiles and adds the found properties
 as HTML attributes on the compiled tag.
 
+Additionally, syntax highlighting can be included (completely virtual) with
+[`remark-react-lowlight`](https://github.com/bebraw/remark-react-lowlight).
+
 ## License
 
 [MIT](LICENSE) © [Titus Wormer](http://wooorm.com), modified by [Tom MacWright](http://www.macwright.org/) and [Mapbox](https://www.mapbox.com/)
