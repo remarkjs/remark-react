@@ -1,5 +1,10 @@
 <!--lint disable no-multiple-toplevel-headings-->
 
+# 3.1.0
+
+* Adds `toHast` option that allows customization at the [mdast-util-to-hast](https://github.com/wooorm/mdast-util-to-hast#api)
+  level.
+
 # 3.0.2
 
 * Fixes interpretation of the `sanitize` option, allowing users to pass
