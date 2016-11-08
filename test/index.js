@@ -13,7 +13,7 @@ var remark = require('remark');
 var toc = require('remark-toc');
 var github = require('remark-github');
 var commonmark = require('commonmark.json');
-var File = require('vfile');
+var vfile = require('vfile');
 var reactRenderer = require('..');
 
 /*
@@ -37,25 +37,6 @@ var basename = path.basename;
 var extname = path.extname;
 var dirname = path.dirname;
 var relative = path.relative;
-
-/**
- * Create a `File` from a `filePath`.
- *
- * @param {string} filePath
- * @return {File}
- */
-function toFile(filePath, contents) {
-    var extension = extname(filePath);
-    var directory = dirname(filePath);
-    var name = basename(filePath, extension);
-
-    return new File({
-        'directory': directory,
-        'filename': name,
-        'extension': extension.slice(1),
-        'contents': contents
-    });
-}
 
 /**
  * Check if `filePath` is hidden.
@@ -178,7 +159,7 @@ function isHidden(filePath) {
                 assert.equal(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
             });
 
-            it("does not sanitize input when 'sanitize' option is set to false", function() {
+            it('does not sanitize input when `sanitize` option is set to false', function() {
                 var markdown = '```empty\n```';
                 var vdom = remark().use(reactRenderer, {
                     createElement: React.createElement,
@@ -212,7 +193,7 @@ function isHidden(filePath) {
                 var output = read(join(filepath, 'output.html'), 'utf-8');
                 var input = read(join(filepath, 'input.md'), 'utf-8');
                 var config = join(filepath, 'config.json');
-                var file = toFile(fixture + '.md', input);
+                var file = vfile({path: fixture + '.md', contents: input});
                 var result;
 
                 config = exists(config) ? JSON.parse(read(config, 'utf-8')) : {};
