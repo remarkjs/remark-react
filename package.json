@@ -51,12 +51,11 @@
   },
   "bugs": "https://github.com/mapbox/remark-react/issues",
   "scripts": {
-    "build-md": "remark . --output --quiet",
-    "lint": "eslint .",
-    "make": "npm run lint && npm run test-coverage",
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
-    "test": "npm run sub-install && npm run test-api",
+    "build": "remark . --output --quiet --frail",
+    "lint": "eslint .",
     "test-api": "mocha --check-leaks test/index.js",
-    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js"
+    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
+    "test": "npm run build && npm run lint && npm run sub-install && npm run test-coverage"
   }
 }
