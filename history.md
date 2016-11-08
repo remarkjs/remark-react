@@ -2,13 +2,13 @@
 
 # 3.1.0
 
-* Adds `toHast` option that allows customization at the [mdast-util-to-hast](https://github.com/wooorm/mdast-util-to-hast#api)
-  level.
+*   Adds `toHast` option that allows customization at the [mdast-util-to-hast](https://github.com/wooorm/mdast-util-to-hast#api)
+    level.
 
 # 3.0.2
 
-* Fixes interpretation of the `sanitize` option, allowing users to pass
-  `false` to disable sanitization.
+*   Fixes interpretation of the `sanitize` option, allowing users to pass
+    `false` to disable sanitization.
 
 # 2.1.0
 

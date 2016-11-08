@@ -1,6 +1,9 @@
 {
+  "presets": [
+    "lint-recommended",
+    "lint-consistent"
+  ],
   "plugins": [
-    "lint",
     "github",
     "toc"
   ],

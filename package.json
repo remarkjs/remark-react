@@ -21,18 +21,17 @@
     "mdast-util-to-hast": "^1.0.0"
   },
   "devDependencies": {
-    "commonmark.json": "^0.23.0",
-    "eslint": "^2.2.0",
+    "commonmark.json": "^0.26.0",
+    "eslint": "^3.9.0",
     "istanbul": "^0.4.2",
-    "jscs": "^3.0.0",
-    "jscs-jsdoc": "^2.0.0",
-    "remark": "^5.0.0",
-    "remark-cli": "^1.0.0",
-    "remark-github": "^5.0.0",
-    "remark-lint": "^4.0.0",
+    "mocha": "^3.1.0",
+    "remark": "^6.0.0",
+    "remark-cli": "^2.0.0",
+    "remark-github": "^6.0.0",
+    "remark-preset-lint-consistent": "^1.0.0",
+    "remark-preset-lint-recommended": "^1.0.0",
     "remark-toc": "^3.0.0",
-    "mocha": "^2.4.5",
-    "vfile": "^1.3.1"
+    "vfile": "^2.0.0"
   },
   "files": [
     "index.js",
@@ -52,14 +51,11 @@
   },
   "bugs": "https://github.com/mapbox/remark-react/issues",
   "scripts": {
-    "build-md": "remark . --output --quiet",
-    "lint": "npm run lint-api && npm run lint-style",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "make": "npm run lint && npm run test-coverage",
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
-    "test": "npm run sub-install && npm run test-api",
+    "build": "remark . --output --quiet --frail",
+    "lint": "eslint .",
     "test-api": "mocha --check-leaks test/index.js",
-    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js"
+    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
+    "test": "npm run build && npm run lint && npm run sub-install && npm run test-coverage"
   }
 }
