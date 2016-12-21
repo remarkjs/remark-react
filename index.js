@@ -55,7 +55,7 @@ function plugin(processor, options) {
          * pretty lines for now:
          * https://github.com/facebook/react/pull/7081
          */
-        if (children && TABLE_ELEMENTS.indexOf(component) !== -1) {
+        if (children && TABLE_ELEMENTS.indexOf(component.name || component) !== -1) {
             children = children.filter(function (child) {
                 return child !== '\n';
             });
