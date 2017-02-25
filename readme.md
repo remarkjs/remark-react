@@ -62,7 +62,7 @@ var App = React.createClass({
                 value={this.state.text}
                 onChange={this.onChange} />
             <div id='preview'>
-                {remark().use(reactRenderer).process(this.state.text).contents}
+                {remark().use(reactRenderer).processSync(this.state.text).contents}
             </div>
         </div>);
     }
