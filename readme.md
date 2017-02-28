@@ -100,6 +100,12 @@ All options, including the `options` object itself, are optional:
     }
     ```
 
+    Note: as GFM uses `align` on `td` and `th`, and React doesn’t like that,
+    we [overwrite](https://github.com/mapbox/remark-react/blob/master/index.js#L94)
+    them through `remarkReactComponents` to use `style.textAlign` instead.
+    This means that if you set `td` or `td`, you’ll need to handle `align`
+    yourself.
+
 *   `toHast` (`object`, default: `{}`)
     — Provides options for transforming MDAST document to HAST.
     See [mdast-util-to-hast](https://github.com/wooorm/mdast-util-to-hast#api)

@@ -5,6 +5,7 @@ module.exports = remarkReact;
 var toHAST = require('mdast-util-to-hast');
 var sanitize = require('hast-util-sanitize');
 var toH = require('hast-to-hyperscript');
+var xtend = require('xtend');
 
 var globalCreateElement;
 
@@ -33,10 +34,13 @@ var TABLE_ELEMENTS = ['table', 'thead', 'tbody', 'tfoot', 'tr'];
 function remarkReact(options) {
   var settings = options || {};
   var createElement = settings.createElement || globalCreateElement;
-  var components = settings.remarkReactComponents || {};
   var clean = settings.sanitize !== false;
   var scheme = clean && (typeof settings.sanitize !== 'boolean') ? settings.sanitize : null;
   var toHastOptions = settings.toHast || {};
+  var components = xtend({
+    td: createTableCellComponent('td'),
+    th: createTableCellComponent('th')
+  }, settings.remarkReactComponents);
 
   this.Compiler = compile;
 
@@ -85,5 +89,22 @@ function remarkReact(options) {
     }
 
     return toH(h, hast, settings.prefix);
+  }
+
+  /**
+   * Create a functional React component for a cell.
+   * We need this because GFM uses `align`, whereas React
+   * forbids that and wants `style.textAlign` instead.
+   */
+  function createTableCellComponent(tagName) {
+    return TableCell;
+
+    function TableCell(props) {
+      return createElement(tagName, xtend(props, {
+        align: undefined,
+        children: undefined,
+        style: {textAlign: props.align}
+      }), props.children);
+    }
   }
 }

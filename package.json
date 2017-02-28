@@ -18,7 +18,8 @@
   "dependencies": {
     "hast-to-hyperscript": "^2.0.1",
     "hast-util-sanitize": "^1.0.0",
-    "mdast-util-to-hast": "^2.0.0"
+    "mdast-util-to-hast": "^2.0.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
     "mocha": "^3.1.0",
@@ -74,7 +75,9 @@
       "eqeqeq": [
         "error",
         "always",
-        {"null": "ignore"}
+        {
+          "null": "ignore"
+        }
       ]
     }
   },
