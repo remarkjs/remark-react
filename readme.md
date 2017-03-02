@@ -62,7 +62,7 @@ var App = React.createClass({
                 value={this.state.text}
                 onChange={this.onChange} />
             <div id='preview'>
-                {remark().use(reactRenderer).process(this.state.text).contents}
+                {remark().use(reactRenderer).processSync(this.state.text).contents}
             </div>
         </div>);
     }
@@ -99,6 +99,12 @@ All options, including the `options` object itself, are optional:
       p: MyParagraph
     }
     ```
+
+    Note: as GFM uses `align` on `td` and `th`, and React doesn’t like that,
+    we [overwrite](https://github.com/mapbox/remark-react/blob/master/index.js#L94)
+    them through `remarkReactComponents` to use `style.textAlign` instead.
+    This means that if you set `td` or `td`, you’ll need to handle `align`
+    yourself.
 
 *   `toHast` (`object`, default: `{}`)
     — Provides options for transforming MDAST document to HAST.

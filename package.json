@@ -18,20 +18,20 @@
   "dependencies": {
     "hast-to-hyperscript": "^2.0.1",
     "hast-util-sanitize": "^1.0.0",
-    "mdast-util-to-hast": "^1.0.0"
+    "mdast-util-to-hast": "^2.0.0",
+    "xtend": "^4.0.1"
   },
   "devDependencies": {
-    "commonmark.json": "^0.26.0",
-    "eslint": "^3.9.0",
-    "istanbul": "^0.4.2",
     "mocha": "^3.1.0",
-    "remark": "^6.0.0",
-    "remark-cli": "^2.0.0",
-    "remark-github": "^6.0.0",
-    "remark-preset-lint-consistent": "^1.0.0",
-    "remark-preset-lint-recommended": "^1.0.0",
-    "remark-toc": "^3.0.0",
-    "vfile": "^2.0.0"
+    "nyc": "^10.1.2",
+    "remark": "^7.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-github": "^7.0.0",
+    "remark-preset-lint-consistent": "^2.0.0",
+    "remark-preset-lint-recommended": "^2.0.0",
+    "remark-toc": "^4.0.0",
+    "vfile": "^2.0.0",
+    "xo": "^0.17.1"
   },
   "files": [
     "index.js",
@@ -52,10 +52,44 @@
   "bugs": "https://github.com/mapbox/remark-react/issues",
   "scripts": {
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
-    "build": "remark . --output --quiet --frail",
-    "lint": "eslint .",
+    "build": "remark *.md --output --quiet --frail",
+    "lint": "xo",
     "test-api": "mocha --check-leaks test/index.js",
-    "test-coverage": "istanbul cover _mocha -- --check-leaks test/index.js",
+    "test-coverage": "nyc --reporter lcov mocha test/index.js",
     "test": "npm run build && npm run lint && npm run sub-install && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "rules": {
+      "import/no-extraneous-dependencies": "off",
+      "import/no-unresolved": "off",
+      "import/no-dynamic-require": "off",
+      "max-nested-callbacks": "off",
+      "no-eq-null": "off",
+      "eqeqeq": [
+        "error",
+        "always",
+        {
+          "null": "ignore"
+        }
+      ]
+    }
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-lint-recommended",
+      "preset-lint-consistent",
+      "github",
+      "toc"
+    ],
+    "settings": {
+      "bullet": "*"
+    }
   }
 }
