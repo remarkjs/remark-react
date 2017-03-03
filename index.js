@@ -100,11 +100,12 @@ function remarkReact(options) {
     return TableCell;
 
     function TableCell(props) {
-      return createElement(tagName, xtend(props, {
-        align: undefined,
+      const fixedProps = xtend(props, {
         children: undefined,
         style: {textAlign: props.align}
-      }), props.children);
+      });
+      delete fixedProps.align;
+      return createElement(tagName, fixedProps, props.children);
     }
   }
 }
