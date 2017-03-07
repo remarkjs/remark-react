@@ -1,6 +1,12 @@
-<a name="3.1.1"></a>
+<a name="3.1.2"></a>
 
-## [3.1.1](https://github.com/mapbox/remark-react/compare/v3.1.0...v3.1.1) (2017-03-07)
+## [3.1.2](https://github.com/mapbox/remark-react/compare/v3.1.1...v3.1.2) (2017-03-07)
+
+### Bug Fixes
+
+*   Removing ES2015 syntax
+
+# 3.1.1
 
 ### Bug Fixes
 
