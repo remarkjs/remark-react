@@ -1,14 +1,10 @@
 <a name="3.1.1"></a>
-## [3.1.1](https://github.com/mapbox/remark-react/compare/v3.1.0...v3.1.1) (2017-03-07)
 
+## [3.1.1](https://github.com/mapbox/remark-react/compare/v3.1.0...v3.1.1) (2017-03-07)
 
 ### Bug Fixes
 
-* **output:** Remove unknown prop 'align' ([e0462f1](https://github.com/mapbox/remark-react/commit/e0462f1))
-
-
-
-<!--lint disable no-multiple-toplevel-headings-->
+*   **output:** Remove unknown prop 'align' ([e0462f1](https://github.com/mapbox/remark-react/commit/e0462f1))
 
 # 3.1.0
 

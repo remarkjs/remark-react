@@ -54,12 +54,11 @@
   "bugs": "https://github.com/mapbox/remark-react/issues",
   "scripts": {
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
-    "build": "remark *.md --output --quiet --frail",
     "changelog": "standard-changelog -i history.md --overwrite",
     "lint": "xo",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "nyc --reporter lcov mocha test/index.js",
-    "test": "npm run build && npm run lint && npm run sub-install && npm run test-coverage"
+    "test": "npm run lint && npm run sub-install && npm run test-coverage"
   },
   "nyc": {
     "check-coverage": true,
