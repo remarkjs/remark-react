@@ -1,7 +1,7 @@
 {
   "name": "remark-react",
   "description": "Compile Markdown to React with remark",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "author": {
     "name": "Titus Wormer",
     "email": "tituswormer@gmail.com"
@@ -19,9 +19,11 @@
     "hast-to-hyperscript": "^2.0.1",
     "hast-util-sanitize": "^1.0.0",
     "mdast-util-to-hast": "^2.0.0",
+    "standard-changelog": "^0.0.1",
     "xtend": "^4.0.1"
   },
   "devDependencies": {
+    "cz-conventional-changelog": "^2.0.0",
     "mocha": "^3.1.0",
     "nyc": "^10.1.2",
     "remark": "^7.0.0",
@@ -53,6 +55,7 @@
   "scripts": {
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
     "build": "remark *.md --output --quiet --frail",
+    "changelog": "standard-changelog -i history.md --overwrite",
     "lint": "xo",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "nyc --reporter lcov mocha test/index.js",
@@ -90,6 +93,11 @@
     ],
     "settings": {
       "bullet": "*"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
