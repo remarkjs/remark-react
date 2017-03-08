@@ -1,6 +1,6 @@
 <a name="3.1.1"></a>
 
-# 3.1.1
+## [3.1.1](https://github.com/mapbox/remark-react/compare/v3.1.0...v3.1.1) (2017-03-07)
 
 ### Bug Fixes
 
