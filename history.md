@@ -1,3 +1,13 @@
+<a name="3.1.2"></a>
+## [3.1.2](https://github.com/mapbox/remark-react/compare/v3.1.1...v3.1.2) (2017-03-08)
+
+
+### Bug Fixes
+
+* **core:** Remove const, restore ES5 compatibility ([52ef7e0](https://github.com/mapbox/remark-react/commit/52ef7e0))
+
+
+
 <a name="3.1.1"></a>
 
 ## [3.1.1](https://github.com/mapbox/remark-react/compare/v3.1.0...v3.1.1) (2017-03-07)
