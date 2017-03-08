@@ -1,7 +1,7 @@
 {
   "name": "remark-react",
   "description": "Compile Markdown to React with remark",
-  "version": "3.1.2",
+  "version": "3.1.1",
   "author": {
     "name": "Titus Wormer",
     "email": "tituswormer@gmail.com"
