@@ -100,7 +100,7 @@ function remarkReact(options) {
     return TableCell;
 
     function TableCell(props) {
-      const fixedProps = xtend(props, {
+      var fixedProps = xtend(props, {
         children: undefined,
         style: {textAlign: props.align}
       });
