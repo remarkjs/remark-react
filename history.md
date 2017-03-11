@@ -1,3 +1,11 @@
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/mapbox/remark-react/compare/v3.1.2...v4.0.0) (2017-03-11)
+
+Re-release of 3.1.2 as 4.0.0: the previous version should have been marked as
+breaking, and has now been deprecated.
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/mapbox/remark-react/compare/v3.1.1...v3.1.2) (2017-03-08)
 
