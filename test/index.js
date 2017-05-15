@@ -134,6 +134,33 @@ function isHidden(filePath) {
         assert.equal(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
       });
 
+      it('should camelize prop keys', function () {
+        var markdown = '# Foo';
+
+        const transformer = function () {
+          return transform;
+
+          function transform(tree) {
+            tree.children[0].data = {hProperties: {customAttr: 'Bar'}};
+          }
+        };
+
+        var h1Props;
+        var vdom = remark().use(transformer).use(reactRenderer, {
+          createElement: React.createElement,
+          remarkReactComponents: {
+            h1: function (props) {
+              h1Props = props;
+              return React.createElement('h1', props);
+            }
+          },
+          sanitize: false
+        }).processSync(markdown).contents;
+
+        React.renderToStaticMarkup(vdom);
+        assert.equal(h1Props.customAttr, 'Bar');
+      });
+
       it('does not sanitize input when `sanitize` option is set to false', function () {
         var markdown = '```empty\n```';
         var vdom = remark().use(reactRenderer, {

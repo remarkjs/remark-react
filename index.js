@@ -6,6 +6,7 @@ var toHAST = require('mdast-util-to-hast');
 var sanitize = require('hast-util-sanitize');
 var toH = require('hast-to-hyperscript');
 var xtend = require('xtend');
+var camelize = require('camelize');
 
 var globalCreateElement;
 
@@ -67,7 +68,7 @@ function remarkReact(options) {
       });
     }
 
-    return createElement(component, props, children);
+    return createElement(component, camelize(props), children);
   }
 
   /**
