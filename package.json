@@ -16,7 +16,7 @@
     "Jeremy Stucki <jeremy@interactivethings.com>"
   ],
   "dependencies": {
-    "hast-to-hyperscript": "^2.0.1",
+    "hast-to-hyperscript": "^3.0.0",
     "hast-util-sanitize": "^1.0.0",
     "mdast-util-to-hast": "^2.0.0",
     "standard-changelog": "^0.0.1",
