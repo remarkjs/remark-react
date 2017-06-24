@@ -52,7 +52,7 @@ function remarkReact(options) {
    * @param {Object} props - Attributes.
    * @return {ReactElement} - React element.
    */
-  function h(name, props, children = []) {
+  function h(name, props, children) {
     var component = own.call(components, name) ? components[name] : name;
 
     /*
@@ -60,11 +60,13 @@ function remarkReact(options) {
      * 1. Removing elements that only contain a line break.
      * 2. Coercing single-element arrays into a single value.
      */
-    children = children.filter(function (child) {
-      return child !== '\n';
-    });
+    if (children) {
+      children = children.filter(function (child) {
+        return child !== '\n';
+      });
+    }
 
-    if (children.length === 1) {
+    if (children && children.length === 1) {
       children = children[0];
     }
 
