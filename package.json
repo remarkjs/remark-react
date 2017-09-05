@@ -1,7 +1,7 @@
 {
   "name": "remark-react",
   "description": "Compile Markdown to React with remark",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "author": {
     "name": "Titus Wormer",
     "email": "tituswormer@gmail.com"
@@ -16,7 +16,7 @@
     "Jeremy Stucki <jeremy@interactivethings.com>"
   ],
   "dependencies": {
-    "hast-to-hyperscript": "^2.0.1",
+    "hast-to-hyperscript": "^3.0.0",
     "hast-util-sanitize": "^1.0.0",
     "mdast-util-to-hast": "^2.0.0",
     "standard-changelog": "^0.0.1",

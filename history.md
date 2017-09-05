@@ -1,3 +1,13 @@
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/mapbox/remark-react/compare/v4.0.0...v4.0.1) (2017-05-22)
+
+
+### Bug Fixes
+
+* **output:** Update `hast-to-hyperscript` to 3.0.0 ([0aa5fa2](https://github.com/mapbox/remark-react/commit/0aa5fa2)), closes [#41](https://github.com/mapbox/remark-react/issues/41)
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/mapbox/remark-react/compare/v3.1.2...v4.0.0) (2017-03-11)
 
