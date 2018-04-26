@@ -17,9 +17,9 @@
   ],
   "dependencies": {
     "@mapbox/hast-util-table-cell-style": "^0.1.1",
-    "hast-to-hyperscript": "^3.0.0",
+    "hast-to-hyperscript": "^4.0.0",
     "hast-util-sanitize": "^1.0.0",
-    "mdast-util-to-hast": "^2.0.0"
+    "mdast-util-to-hast": "^3.0.0"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.0.0",
