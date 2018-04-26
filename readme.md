@@ -79,7 +79,13 @@ All options, including the `options` object itself, are optional:
     — Sanitation schema to use. Passed to
     [hast-util-sanitize](https://github.com/wooorm/hast-util-sanitize).
     The default schema, if none or `true` is passed, adheres to GitHub’s
-    sanitation rules. If `false` is passed, it does not sanitize input.
+    sanitation rules.
+
+    **This means that non-standard HAST nodes and many
+    HTML elements are *by default* santized out.** If you want to be more
+    permissive, you should provide a value for `sanitize`.
+
+    If `false` is passed, it does not sanitize input.
 
 *   `prefix` (`string`, default: `h-`)
     — React key.
