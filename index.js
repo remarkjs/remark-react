@@ -53,15 +53,18 @@ function remarkReact(options) {
     var component = own.call(components, name) ? components[name] : name;
 
     /*
-     * Currently, a warning is triggered by react for
-     * *any* white-space in tables.  So we remove the
-     * pretty lines for now:
-     * https://github.com/facebook/react/pull/7081
+     * Avoid unnecessary 'react-text' comments in produced DOM by:
+     * 1. Removing elements that only contain a line break.
+     * 2. Coercing single-element arrays into a single value.
      */
-    if (children && TABLE_ELEMENTS.indexOf(component) !== -1) {
+    if (children) {
       children = children.filter(function (child) {
         return child !== '\n';
       });
+    }
+
+    if (children && children.length === 1) {
+      children = children[0];
     }
 
     return createElement(component, props, children);
