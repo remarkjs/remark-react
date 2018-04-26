@@ -1,3 +1,13 @@
+<a name="4.0.3"></a>
+## [4.0.3](https://github.com/mapbox/remark-react/compare/4.0.2...v4.0.3) (2018-04-26)
+
+
+### Bug Fixes
+
+* Update hast-util-table-cell-style for browser compat ([1100c60](https://github.com/mapbox/remark-react/commit/1100c60))
+
+
+
 <a name="4.0.2"></a>
 ## [4.0.2](https://github.com/mapbox/remark-react/compare/4.0.1...v4.0.2) (2018-04-26)
 
