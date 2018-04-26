@@ -1,3 +1,14 @@
+<a name="4.0.2"></a>
+## [4.0.2](https://github.com/mapbox/remark-react/compare/4.0.1...v4.0.2) (2018-04-26)
+
+
+### Bug Fixes
+
+* Update hast-to-hyperscript and mdast-util-to-hast ([a8231c0](https://github.com/mapbox/remark-react/commit/a8231c0))
+* Use hast-util-table-cell-style to adjust align properties ([d141733](https://github.com/mapbox/remark-react/commit/d141733))
+
+
+
 <a name="4.0.1"></a>
 ## [4.0.1](https://github.com/mapbox/remark-react/compare/v4.0.0...v4.0.1) (2017-05-22)
 
