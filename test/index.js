@@ -6,6 +6,7 @@ var path = require('path');
 var fs = require('fs');
 var assert = require('assert');
 var remark = require('remark');
+var frontmatter = require('remark-frontmatter');
 var vfile = require('vfile');
 var reactRenderer = require('..');
 
@@ -17,7 +18,7 @@ var join = path.join;
 /**
  * Check if `filePath` is hidden.
  *
- * @param {string} filePath
+ * @param {string} filePath - Path to file
  * @return {boolean} - Whether or not `filePath` is hidden.
  */
 function isHidden(filePath) {
@@ -38,35 +39,39 @@ function isHidden(filePath) {
   /**
    * Shortcut to process.
    *
-   * @param {File} file
-   * @return {string}
+   * @param {File} file - Virtual file
+   * @param {File} config - Processing configuration
+   * @return {string} - Rendered HTML
    */
   function processSync(file, config) {
-    var vdom = remark().data('settings', config).use(reactRenderer, config).processSync(file).contents;
+    var vdom = remark().data('settings', config)
+      .use(frontmatter)
+      .use(reactRenderer, config)
+      .processSync(file).contents;
     return React.renderToStaticMarkup(vdom);
   }
 
   /**
    * Assert two strings.
    *
-   * @param {string} actual
-   * @param {string} expected
-   * @param {boolean?} [silent]
+   * @param {string} actual - Actual fixture
+   * @param {string} expected - Expected fixture
+   * @param {boolean?} [silent] - Don’t throw error
    * @return {Error?} - When silent and not equal.
    * @throws {Error} - When not silent and not equal.
    */
   function assertion(actual, expected, silent) {
     try {
       assert(actual === expected);
-    } catch (err) {
-      err.expected = expected;
-      err.actual = actual;
+    } catch (error) {
+      error.expected = expected;
+      error.actual = actual;
 
       if (silent) {
-        return err;
+        return error;
       }
 
-      throw err;
+      throw error;
     }
   }
 
@@ -116,7 +121,7 @@ function isHidden(filePath) {
         var keys1 = reactKeys(markdown);
         var keys2 = reactKeys(markdown);
 
-        assert.deepEqual(keys1, keys2);
+        assert.deepStrictEqual(keys1, keys2);
       });
 
       it('should use custom components', function () {
@@ -131,7 +136,7 @@ function isHidden(filePath) {
           }
         }).processSync(markdown).contents;
 
-        assert.equal(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
+        assert.strictEqual(React.renderToStaticMarkup(vdom), '<div><h2>Foo</h2></div>');
       });
 
       it('does not sanitize input when `sanitize` option is set to false', function () {
@@ -142,7 +147,7 @@ function isHidden(filePath) {
         }).processSync(markdown).contents;
 
         // If sanitation were done, 'class' property should be removed.
-        assert.equal(React.renderToStaticMarkup(vdom), '<div><pre><code class="language-empty"></code></pre></div>');
+        assert.strictEqual(React.renderToStaticMarkup(vdom), '<div><pre><code class="language-empty"></code></pre></div>');
       });
 
       it('passes toHast options to inner toHAST() function', function () {
@@ -153,14 +158,14 @@ function isHidden(filePath) {
           toHast: {allowDangerousHTML: true}
         }).processSync(markdown).contents;
 
-        assert.equal(React.renderToStaticMarkup(vdom), '<div><h1>Foo</h1></div>');
+        assert.strictEqual(React.renderToStaticMarkup(vdom), '<div><h1>Foo</h1></div>');
       });
     });
 
     /**
      * Describe a fixture.
      *
-     * @param {string} fixture
+     * @param {string} fixture - Name for fixture
      */
     function describeFixture(fixture) {
       it('should work on `' + fixture + '`', function () {

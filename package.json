@@ -23,17 +23,18 @@
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.0.0",
-    "mocha": "^3.1.0",
-    "nyc": "^10.1.2",
-    "remark": "^7.0.0",
-    "remark-cli": "^3.0.0",
+    "mocha": "^5.0.0",
+    "nyc": "^13.0.0",
+    "remark": "^10.0.0",
+    "remark-cli": "^6.0.0",
+    "remark-frontmatter": "^1.3.1",
     "remark-github": "^7.0.0",
     "remark-preset-lint-consistent": "^2.0.0",
-    "remark-preset-lint-recommended": "^2.0.0",
-    "remark-toc": "^4.0.0",
-    "standard-changelog": "^0.0.1",
-    "vfile": "^2.0.0",
-    "xo": "^0.17.1"
+    "remark-preset-lint-recommended": "^3.0.0",
+    "remark-toc": "^5.0.0",
+    "standard-changelog": "^2.0.0",
+    "vfile": "^3.0.0",
+    "xo": "^0.23.0"
   },
   "files": [
     "index.js",
@@ -68,6 +69,7 @@
   },
   "xo": {
     "space": true,
+    "esnext": false,
     "rules": {
       "import/no-extraneous-dependencies": "off",
       "import/no-unresolved": "off",

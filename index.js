@@ -11,7 +11,7 @@ var globalCreateElement;
 
 try {
   globalCreateElement = require('react').createElement;
-} catch (err) {}
+} catch (error) {}
 
 var own = {}.hasOwnProperty;
 
@@ -20,8 +20,7 @@ var TABLE_ELEMENTS = ['table', 'thead', 'tbody', 'tfoot', 'tr'];
 /**
  * Attach a react compiler.
  *
- * @param {Unified} processor - Instance.
- * @param {Object?} [options]
+ * @param {Object?} [options] - Configuration
  * @param {Object?} [options.sanitize]
  *   - Sanitation schema.
  * @param {Object?} [options.remarkReactComponents]
@@ -47,6 +46,7 @@ function remarkReact(options) {
    *
    * @param {string} name - Element name.
    * @param {Object} props - Attributes.
+   * @param {Object} children - React children.
    * @return {ReactElement} - React element.
    */
   function h(name, props, children) {
