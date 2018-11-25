@@ -15,9 +15,6 @@
     "Tsuyusato Kitsune <make.just.on@gmail.com>",
     "Jeremy Stucki <jeremy@interactivethings.com>"
   ],
-    "peerDependencies": {
-    "react": ">=0.14"
-  },
   "dependencies": {
     "@mapbox/hast-util-table-cell-style": "^0.1.3",
     "hast-to-hyperscript": "^5.0.0",
