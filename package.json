@@ -32,20 +32,17 @@
     "mdast-util-to-hast": "^4.0.0"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^2.0.0",
     "mocha": "^5.0.0",
     "nyc": "^13.0.0",
     "remark": "^10.0.0",
     "remark-cli": "^6.0.0",
     "remark-frontmatter": "^1.3.1",
     "remark-preset-wooorm": "^4.0.0",
-    "standard-changelog": "^2.0.0",
     "vfile": "^3.0.0",
     "xo": "^0.23.0"
   },
   "scripts": {
     "sub-install": "cd test/react/v16 && npm install && cd ../..",
-    "changelog": "standard-changelog -i history.md --overwrite",
     "lint": "xo",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "nyc --reporter lcov mocha test/index.js",
@@ -79,10 +76,5 @@
     "plugins": [
       "preset-wooorm"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
