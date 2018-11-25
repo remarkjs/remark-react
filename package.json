@@ -1,19 +1,29 @@
 {
   "name": "remark-react",
-  "description": "Compile Markdown to React with remark",
   "version": "4.0.3",
-  "author": {
-    "name": "Titus Wormer",
-    "email": "tituswormer@gmail.com"
-  },
+  "description": "Compile Markdown to React with remark",
+  "license": "MIT",
+  "keywords": [
+    "compile",
+    "html",
+    "markdown",
+    "remark",
+    "stringify"
+  ],
+  "repository": "mapbox/remark-react",
+  "bugs": "https://github.com/mapbox/remark-react/issues",
+  "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
     "Tom MacWright <tom@macwright.org>",
-    "Titus Wormer <tituswormer@gmail.com>",
+    "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
     "Ciaran Wood <cyrzinsomnia@gmail.com>",
     "Juho Vepsalainen <bebraw@gmail.com>",
     "Jason Trill <jason@jasontrill.com>",
     "Tsuyusato Kitsune <make.just.on@gmail.com>",
     "Jeremy Stucki <jeremy@interactivethings.com>"
+  ],
+  "files": [
+    "index.js"
   ],
   "dependencies": {
     "@mapbox/hast-util-table-cell-style": "^0.1.3",
@@ -36,22 +46,6 @@
     "vfile": "^3.0.0",
     "xo": "^0.23.0"
   },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "compile",
-    "html",
-    "markdown",
-    "remark",
-    "stringify"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mapbox/remark-react.git"
-  },
-  "bugs": "https://github.com/mapbox/remark-react/issues",
   "scripts": {
     "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
     "changelog": "standard-changelog -i history.md --overwrite",
