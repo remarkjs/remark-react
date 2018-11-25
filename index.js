@@ -15,8 +15,6 @@ try {
 
 var own = {}.hasOwnProperty
 
-var tableElements = ['table', 'thead', 'tbody', 'tfoot', 'tr']
-
 function react(options) {
   var settings = options || {}
   var createElement = settings.createElement || globalCreateElement
@@ -31,15 +29,6 @@ function react(options) {
   // Wrapper around `createElement` to pass components in.
   function h(name, props, children) {
     var component = own.call(components, name) ? components[name] : name
-
-    // Currently, a warning is triggered by react for *any* white-space in
-    // tables.  So we remove the pretty lines for now:
-    // https://github.com/facebook/react/pull/7081
-    if (children && tableElements.indexOf(component) !== -1) {
-      children = children.filter(function(child) {
-        return child !== '\n'
-      })
-    }
 
     return createElement(component, props, children)
   }
@@ -57,8 +46,6 @@ function react(options) {
       hast = sanitize(hast, scheme)
     }
 
-    hast = tableCellStyle(hast)
-
-    return toH(h, hast, settings.prefix)
+    return toH(h, tableCellStyle(hast), settings.prefix)
   }
 }
