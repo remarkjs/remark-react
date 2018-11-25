@@ -25,7 +25,7 @@ function isHidden(filePath) {
   return filePath.indexOf('.') !== 0;
 }
 
-['v0.14'].forEach(function (reactVersion) {
+['v16'].forEach(function (reactVersion) {
   var React = require(path.join(__dirname, 'react', reactVersion));
 
   /*

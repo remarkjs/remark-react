@@ -47,7 +47,7 @@
     "xo": "^0.23.0"
   },
   "scripts": {
-    "sub-install": "cd test/react/v0.14 && npm install && cd ../..",
+    "sub-install": "cd test/react/v16 && npm install && cd ../..",
     "changelog": "standard-changelog -i history.md --overwrite",
     "lint": "xo",
     "test-api": "mocha --check-leaks test/index.js",
