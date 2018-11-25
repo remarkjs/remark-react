@@ -1,21 +1,23 @@
 # remark-react
 
-[![Build Status](https://travis-ci.org/mapbox/remark-react.svg?branch=master)](https://travis-ci.org/mapbox/remark-react)
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Chat][chat-badge]][chat]
 
-**remark-react** compiles markdown to React.  Built on [**remark**](https://github.com/wooorm/remark),
-an extensively tested and pluggable parser.
+Transform markdown to React with **[remark][]**, an extensively tested and
+pluggable parser.
 
-**Why?** Using innerHTML and [dangerouslySetInnerHTML](https://facebook.github.io/react/tips/dangerously-set-inner-html.html) in
-[React.js](http://facebook.github.io/react/) is a common cause of [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting)
-attacks: user input can include script tags and other kinds of active
-content that reaches across domains and harms security. remark-react
-builds a DOM in React, using [React.createElement](https://facebook.github.io/react/docs/top-level-api.html):
-this means that you can display parsed & formatted Markdown content
-in an application without using `dangerouslySetInnerHTML`.
+**Why?**  Using innerHTML and [dangerouslySetInnerHTML][] in [React][] is a
+common cause of [XSS][] attacks: user input can include script tags and other
+kinds of active content that reaches across domains and harms security.
+**remark-react** builds a DOM in React, using [React.createElement][h]: this
+means that you can display parsed & formatted Markdown content in an
+application without using `dangerouslySetInnerHTML`.
 
 ## Installation
 
-[npm](https://docs.npmjs.com/cli/install):
+[npm][]:
 
 ```bash
 npm install remark-react
@@ -23,116 +25,132 @@ npm install remark-react
 
 ## Table of Contents
 
-*   [Programmatic](#programmatic)
-
-    *   [remark.use(react, options)](#remarkusereact-options)
-
-*   [Configuration](#configuration)
-
-*   [Integrations](#integrations)
-
-*   [License](#license)
-
-## Programmatic
-
-### [remark](https://github.com/wooorm/remark#api).[use](https://github.com/wooorm/remark#remarkuseplugin-options)(react, [options](#configuration))
-
-**Parameters**
-
-*   `react` — This plugin;
-*   `options` (`Object?`) — See [below](#configuration).
-
-Let’s say `example.js` looks as follows:
+## Usage
 
 ```js
-var React = require('react'),
-    remark = require('remark'),
-    reactRenderer = require('remark-react');
+var React = require('react')
+var remark = require('remark')
+var remark2react = require('remark-react');
 
 var App = React.createClass({
-    getInitialState() {
-        return { text: '# hello world' };
-    },
-    onChange(e) {
-        this.setState({ text: e.target.value });
-    },
-    render() {
-        return (<div>
-            <textarea
-                value={this.state.text}
-                onChange={this.onChange} />
-            <div id='preview'>
-                {remark().use(reactRenderer).processSync(this.state.text).contents}
-            </div>
-        </div>);
-    }
+  getInitialState() {
+    return { text: '# hello world' };
+  },
+  onChange(e) {
+    this.setState({ text: e.target.value });
+  },
+  render() {
+    return (
+      <div>
+        <textarea value={this.state.text} onChange={this.onChange} />
+        <div id='preview'>
+          {remark().use(remark2react).processSync(this.state.text).contents}
+        </div>
+      </div>
+    );
+  }
 });
 
 React.render(<App />, document.getElementById('app'));
 ```
 
-## Configuration
+## API
 
-All options, including the `options` object itself, are optional:
+### `remark().use(react[, options])`
 
-*   `sanitize` (`object` or `boolean`, default: `undefined`)
-    — Sanitation schema to use. Passed to
-    [hast-util-sanitize](https://github.com/wooorm/hast-util-sanitize).
-    The default schema, if none or `true` is passed, adheres to GitHub’s
-    sanitation rules.
+Transform markdown to React.
 
-    **This means that non-standard HAST nodes and many
-    HTML elements are *by default* santized out.** If you want to be more
-    permissive, you should provide a value for `sanitize`.
+##### Options
 
-    If `false` is passed, it does not sanitize input.
+###### `options.createElement`
 
-*   `prefix` (`string`, default: `h-`)
-    — React key.
+How to create elements or components (`Function`).
+Default: `require('react').createElement`)
 
-*   `createElement` (`Function`, default: `require('react').createElement`)
-    — Function to use to create elements.
+###### `options.sanitize`
 
-*   `remarkReactComponents` (`object`, default: `undefined`)
-    — Provides a way to override default elements (`<a>`, `<p>`, etc)
-    by defining an object comprised of `element: Component` key-value
-    pairs. For example, to output `<MyLink>` components instead of
-    `<a>`, and `<MyParagraph>` instead of `<p>`:
+Sanitation schema to use (`object` or `boolean`, default: `undefined`).
+Passed to [`hast-util-sanitize`][sanitize].
+The default schema, if none or `true` is passed, adheres to GitHub’s
+sanitation rules.
+Setting this to `false` is just as bad as using `dangerouslySetInnerHTML`.
 
-    ```js
-    remarkReactComponents: {
-      a: MyLink,
-      p: MyParagraph
-    }
-    ```
+###### `options.prefix`
 
-*   `toHast` (`object`, default: `{}`)
-    — Provides options for transforming MDAST document to HAST.
-    See [mdast-util-to-hast](https://github.com/wooorm/mdast-util-to-hast#api)
-    for settings.
+React key (default: `h-`).
 
-These can passed to `remark.use()` as a second argument.
+###### `options.remarkReactComponents`
+
+Override default elements, such as `<a>`, `<p>`, etc by defining an object
+comprised of `element: Component` key-value pairs (`object`, default:
+`undefined`).
+For example, to output `<MyLink>` components instead of `<a>`, and
+`<MyParagraph>` instead of `<p>`:
+
+```javascript
+remarkReactComponents: {
+  a: MyLink,
+  p: MyParagraph
+}
+```
+
+###### `options.toHast`
+
+Configure how to transform [mdast][] to [hast][] (`object`, default: `{}`).
+Passed to [mdast-util-to-hast][to-hast].
 
 ## Integrations
 
-**remark-react** works great with:
-
-*   [**remark-toc**](https://github.com/wooorm/remark-toc), which generates
-    tables of contents;
-
-*   [**remark-github**](https://github.com/wooorm/remark-github), which
-    generates references to GitHub issues, PRs, users, and more;
-
-*   ...and [more](https://github.com/wooorm/remark/blob/master/doc/plugins.md#list-of-plugins).
-
-All [**remark** nodes](https://github.com/wooorm/mdast)
-can be compiled to HTML.  In addition, **remark-react** looks for an
-`attributes` object on each node it compiles and adds the found properties
-as HTML attributes on the compiled tag.
-
-Additionally, syntax highlighting can be included (completely virtual) with
-[`remark-react-lowlight`](https://github.com/bebraw/remark-react-lowlight).
+See how to integrate with other remark plugins in the [Integrations][] section
+of `remark-html`.
 
 ## License
 
-[MIT](license) © [Titus Wormer](http://wooorm.com), modified by [Tom MacWright](http://www.macwright.org/) and [Mapbox](https://www.mapbox.com/)
+[MIT][license] © [Titus Wormer][author], modified by [Tom MacWright][tom] and
+[Mapbox][].
+
+[build-badge]: https://img.shields.io/travis/mapbox/remark-react.svg
+
+[build]: https://travis-ci.org/mapbox/remark-react
+
+[coverage-badge]: https://img.shields.io/codecov/c/github/mapbox/remark-react.svg
+
+[coverage]: https://codecov.io/github/mapbox/remark-react
+
+[downloads-badge]: https://img.shields.io/npm/dm/remark-react.svg
+
+[downloads]: https://www.npmjs.com/package/remark-react
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/remark
+
+[npm]: https://docs.npmjs.com/cli/install
+
+[license]: license
+
+[author]: https://wooorm.com
+
+[tom]: https://macwright.org
+
+[mdast]: https://github.com/syntax-tree/mdast
+
+[hast]: https://github.com/syntax-tree/hast
+
+[remark]: https://github.com/remarkjs/remark
+
+[mapbox]: https://www.mapbox.com
+
+[to-hast]: https://github.com/syntax-tree/mdast-util-to-hast#tohastnode-options
+
+[react]: http://facebook.github.io/react/
+
+[dangerouslysetinnerhtml]: https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
+
+[xss]: https://en.wikipedia.org/wiki/Cross-site_scripting
+
+[h]: https://reactjs.org/docs/react-api.html#createelement
+
+[sanitize]: https://github.com/syntax-tree/hast-util-sanitize
+
+[integrations]: https://github.com/remarkjs/remark-html#integrations

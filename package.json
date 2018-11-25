@@ -38,10 +38,7 @@
     "remark": "^10.0.0",
     "remark-cli": "^6.0.0",
     "remark-frontmatter": "^1.3.1",
-    "remark-github": "^7.0.0",
-    "remark-preset-lint-consistent": "^2.0.0",
-    "remark-preset-lint-recommended": "^3.0.0",
-    "remark-toc": "^5.0.0",
+    "remark-preset-wooorm": "^4.0.0",
     "standard-changelog": "^2.0.0",
     "vfile": "^3.0.0",
     "xo": "^0.23.0"
@@ -80,14 +77,8 @@
   },
   "remarkConfig": {
     "plugins": [
-      "preset-lint-recommended",
-      "preset-lint-consistent",
-      "github",
-      "toc"
-    ],
-    "settings": {
-      "bullet": "*"
-    }
+      "preset-wooorm"
+    ]
   },
   "config": {
     "commitizen": {
