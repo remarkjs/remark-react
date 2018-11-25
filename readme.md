@@ -135,4 +135,4 @@ Additionally, syntax highlighting can be included (completely virtual) with
 
 ## License
 
-[MIT](LICENSE) © [Titus Wormer](http://wooorm.com), modified by [Tom MacWright](http://www.macwright.org/) and [Mapbox](https://www.mapbox.com/)
+[MIT](license) © [Titus Wormer](http://wooorm.com), modified by [Tom MacWright](http://www.macwright.org/) and [Mapbox](https://www.mapbox.com/)

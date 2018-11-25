@@ -37,8 +37,7 @@
     "xo": "^0.23.0"
   },
   "files": [
-    "index.js",
-    "LICENSE"
+    "index.js"
   ],
   "keywords": [
     "compile",
