@@ -1,5 +1,4 @@
 language: node_js
 node_js:
-- '4.0'
-- '7.0'
-sudo: false
+- lts/boron
+- node
