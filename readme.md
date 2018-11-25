@@ -77,6 +77,11 @@ Transform markdown to React.
 How to create elements or components (`Function`).
 Default: `require('react').createElement`)
 
+###### `options.fragment`
+
+Create fragments instead of an outer `<div>` if available (`Function`).
+Default: `require('react').Fragment`)
+
 ###### `options.sanitize`
 
 Sanitation schema to use (`object` or `boolean`, default: `undefined`).

@@ -76,7 +76,7 @@ versions.forEach(function(reactVersion) {
           })
           .processSync('# Foo').contents
       ),
-      '<div><h2>Foo</h2></div>',
+      '<h2>Foo</h2>',
       'should use custom components'
     )
 
@@ -90,8 +90,21 @@ versions.forEach(function(reactVersion) {
           })
           .processSync('```empty\n```').contents
       ),
-      '<div><pre><code class="language-empty"></code></pre></div>',
+      '<pre><code class="language-empty"></code></pre>',
       'does not sanitize input when `sanitize` option is set to false'
+    )
+
+    t.equal(
+      React.renderToStaticMarkup(
+        remark()
+          .use(reactRenderer, {
+            createElement: React.createElement,
+            fragment: React.Fragment
+          })
+          .processSync('# Hello\nWorld').contents
+      ),
+      '<h1>Hello</h1>\n<p>World</p>',
+      'should support given fragments'
     )
 
     t.equal(
@@ -103,7 +116,7 @@ versions.forEach(function(reactVersion) {
           })
           .processSync('# Foo').contents
       ),
-      '<div><h1>Foo</h1></div>',
+      '<h1>Foo</h1>',
       'passes toHast options to inner toHAST() function'
     )
 
