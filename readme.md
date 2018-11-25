@@ -25,6 +25,12 @@ npm install remark-react
 
 ## Table of Contents
 
+*   [Usage](#usage)
+*   [API](#api)
+    *   [remark().use(react\[, options\])](#remarkusereact-options)
+*   [Integrations](#integrations)
+*   [License](#license)
+
 ## Usage
 
 ```js

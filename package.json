@@ -32,8 +32,11 @@
     "mdast-util-to-hast": "^4.0.0"
   },
   "devDependencies": {
+    "is-hidden": "^1.1.1",
     "mocha": "^5.0.0",
+    "not": "^0.1.0",
     "nyc": "^13.0.0",
+    "prettier": "^1.15.2",
     "remark": "^10.0.0",
     "remark-cli": "^6.0.0",
     "remark-frontmatter": "^1.3.1",
@@ -43,10 +46,10 @@
   },
   "scripts": {
     "sub-install": "cd test/react/v16 && npm install && cd ../..",
-    "lint": "xo",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "test-api": "mocha --check-leaks test/index.js",
     "test-coverage": "nyc --reporter lcov mocha test/index.js",
-    "test": "npm run lint && npm run sub-install && npm run test-coverage"
+    "test": "npm run sub-install && npm run format && npm run test-coverage"
   },
   "nyc": {
     "check-coverage": true,
@@ -54,8 +57,16 @@
     "functions": 100,
     "branches": 100
   },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "semi": false,
+    "trailingComma": "none"
+  },
   "xo": {
-    "space": true,
+    "prettier": true,
     "esnext": false,
     "rules": {
       "import/no-extraneous-dependencies": "off",
