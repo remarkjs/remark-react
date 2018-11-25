@@ -36,28 +36,32 @@ npm install remark-react
 ```js
 var React = require('react')
 var remark = require('remark')
-var remark2react = require('remark-react');
+var remark2react = require('remark-react')
 
 var App = React.createClass({
   getInitialState() {
-    return { text: '# hello world' };
+    return {text: '# hello world'}
   },
   onChange(e) {
-    this.setState({ text: e.target.value });
+    this.setState({text: e.target.value})
   },
   render() {
     return (
       <div>
         <textarea value={this.state.text} onChange={this.onChange} />
-        <div id='preview'>
-          {remark().use(remark2react).processSync(this.state.text).contents}
+        <div id="preview">
+          {
+            remark()
+              .use(remark2react)
+              .processSync(this.state.text).contents
+          }
         </div>
       </div>
-    );
+    )
   }
-});
+})
 
-React.render(<App />, document.getElementById('app'));
+React.render(<App />, document.getElementById('app'))
 ```
 
 ## API
