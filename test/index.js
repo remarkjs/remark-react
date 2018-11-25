@@ -112,11 +112,12 @@ versions.forEach(function(reactVersion) {
         remark()
           .use(reactRenderer, {
             createElement: React.createElement,
-            toHast: {allowDangerousHTML: true}
+            toHast: {commonmark: true}
           })
-          .processSync('# Foo').contents
+          .processSync('[reference]\n\n[reference]: a.com\n[reference]: b.com')
+          .contents
       ),
-      '<h1>Foo</h1>',
+      '<p><a href="a.com">reference</a></p>',
       'passes toHast options to inner toHAST() function'
     )
 
