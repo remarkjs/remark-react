@@ -1,6 +1,6 @@
 {
   "name": "remark-react",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Compile Markdown to React with remark",
   "license": "MIT",
   "keywords": [
