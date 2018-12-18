@@ -34,17 +34,20 @@ npm install remark-react
 ## Usage
 
 ```js
-var React = require('react')
-var remark = require('remark')
-var remark2react = require('remark-react')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import remark from 'remark'
+import remark2react from 'remark-react'
 
-var App = React.createClass({
-  getInitialState() {
-    return {text: '# hello world'}
-  },
+class App extends React.Component {
+  constructor() {
+    super()
+    this.state = { text: '# hello world' }
+    this.onChange = this.onChange.bind(this)
+  }
   onChange(e) {
-    this.setState({text: e.target.value})
-  },
+    this.setState({ text: e.target.value })
+  }
   render() {
     return (
       <div>
@@ -59,9 +62,9 @@ var App = React.createClass({
       </div>
     )
   }
-})
+}
 
-React.render(<App />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
 ## API
@@ -75,12 +78,12 @@ Transform markdown to React.
 ###### `options.createElement`
 
 How to create elements or components (`Function`).
-Default: `require('react').createElement`)
+Default: `require('react').createElement`
 
 ###### `options.fragment`
 
 Create fragments instead of an outer `<div>` if available (`Function`).
-Default: `require('react').Fragment`)
+Default: `require('react').Fragment`
 
 ###### `options.sanitize`
 
