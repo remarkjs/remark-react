@@ -10,8 +10,8 @@
     "remark",
     "stringify"
   ],
-  "repository": "mapbox/remark-react",
-  "bugs": "https://github.com/mapbox/remark-react/issues",
+  "repository": "remarkjs/remark-react",
+  "bugs": "https://github.com/remarkjs/remark-react/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
     "Tom MacWright <tom@macwright.org>",

@@ -127,13 +127,13 @@ of `remark-html`.
 [MIT][license] © [Titus Wormer][author], modified by [Tom MacWright][tom] and
 [Mapbox][].
 
-[build-badge]: https://img.shields.io/travis/mapbox/remark-react.svg
+[build-badge]: https://img.shields.io/travis/remarkjs/remark-react.svg
 
-[build]: https://travis-ci.org/mapbox/remark-react
+[build]: https://travis-ci.org/remarkjs/remark-react
 
-[coverage-badge]: https://img.shields.io/codecov/c/github/mapbox/remark-react.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-react.svg
 
-[coverage]: https://codecov.io/github/mapbox/remark-react
+[coverage]: https://codecov.io/github/remarkjs/remark-react
 
 [downloads-badge]: https://img.shields.io/npm/dm/remark-react.svg
 
