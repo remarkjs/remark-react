@@ -83,6 +83,9 @@ Transform Markdown to React.
 Configure how to transform [**mdast**][mdast] to [**hast**][hast] (`object`,
 default: `{}`).
 Passed to [`mdast-util-to-hast`][to-hast].
+Note that `toHast.allowDangerousHTML` does not work: it’s not possible to
+inject raw HTML with this plugin (as it’s mean to prevent having to use
+`dangerouslySetInnerHTML`).
 
 ###### `options.sanitize`
 
