@@ -20,6 +20,8 @@ try {
 
 var own = {}.hasOwnProperty
 
+var tableElements = ['table', 'thead', 'tbody', 'tfoot', 'tr']
+
 function react(options) {
   var settings = options || {}
   var createElement = settings.createElement || globalCreateElement
@@ -34,6 +36,18 @@ function react(options) {
 
   // Wrapper around `createElement` to pass components in.
   function h(name, props, children) {
+    // Currently, a warning is triggered by react for *any* white space in
+    // tables.
+    // So we remove the pretty lines for now.
+    // See: <https://github.com/facebook/react/pull/7081>.
+    // See: <https://github.com/facebook/react/pull/7515>.
+    // See: <https://github.com/remarkjs/remark-react/issues/64>.
+    if (children && tableElements.indexOf(name) !== -1) {
+      children = children.filter(function(child) {
+        return child !== '\n'
+      })
+    }
+
     return createElement(
       own.call(components, name) ? components[name] : name,
       props,
