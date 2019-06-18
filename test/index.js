@@ -148,7 +148,7 @@ versions.forEach(function(reactVersion) {
         fs.writeFileSync(path.join(root, name, 'output.html'), actual)
       }
 
-      t.equal(actual, expected, name)
+      t.equal(actual.trim(), expected.trim(), name)
     })
 
     t.end()
