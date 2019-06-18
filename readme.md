@@ -18,6 +18,12 @@ kinds of active content that reaches across domains and harms security.
 means that you can display parsed and formatted Markdown content in an
 application without using `dangerouslySetInnerHTML`.
 
+> ⚠️ This package essentially packs [`remark-rehype`][remark-rehype] and
+> [`rehype-react`][rehype-react], and although it does support some
+> customisation, it isn’t very pluggable.
+> It’s probably better to use `remark-rehype` and `rehype-react` directly to
+> benefit from the [**rehype**][rehype] ecosystem.
+
 ## Install
 
 [npm][]:
@@ -72,15 +78,11 @@ Transform Markdown to React.
 
 ##### `options`
 
-###### `options.createElement`
+###### `options.toHast`
 
-How to create elements or components (`Function`).
-Default: `require('react').createElement`
-
-###### `options.fragment`
-
-Create fragments instead of an outer `<div>` if available (`Function`).
-Default: `require('react').Fragment`
+Configure how to transform [**mdast**][mdast] to [**hast**][hast] (`object`,
+default: `{}`).
+Passed to [`mdast-util-to-hast`][to-hast].
 
 ###### `options.sanitize`
 
@@ -94,6 +96,16 @@ Setting this to `false` is just as bad as using
 ###### `options.prefix`
 
 React key (default: `h-`).
+
+###### `options.createElement`
+
+How to create elements or components (`Function`).
+Default: `require('react').createElement`
+
+###### `options.fragment`
+
+Create fragments instead of an outer `<div>` if available (`Function`, default:
+`require('react').Fragment`).
 
 ###### `options.remarkReactComponents`
 
@@ -109,12 +121,6 @@ remarkReactComponents: {
   p: MyParagraph
 }
 ```
-
-###### `options.toHast`
-
-Configure how to transform [**mdast**][mdast] to [**hast**][hast] (`object`,
-default: `{}`).
-Passed to [`mdast-util-to-hast`][to-hast].
 
 ## Integrations
 
@@ -180,13 +186,19 @@ abide by its terms.
 
 [tom]: https://macwright.org
 
-[mdast]: https://github.com/syntax-tree/mdast
-
-[hast]: https://github.com/syntax-tree/hast
+[mapbox]: https://www.mapbox.com
 
 [remark]: https://github.com/remarkjs/remark
 
-[mapbox]: https://www.mapbox.com
+[remark-rehype]: https://github.com/remarkjs/remark-rehype
+
+[rehype]: https://github.com/remarkjs/remark
+
+[rehype-react]: https://github.com/rhysd/rehype-react
+
+[mdast]: https://github.com/syntax-tree/mdast
+
+[hast]: https://github.com/syntax-tree/hast
 
 [to-hast]: https://github.com/syntax-tree/mdast-util-to-hast#tohastnode-options
 
