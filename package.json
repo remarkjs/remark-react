@@ -1,26 +1,36 @@
 {
   "name": "remark-react",
   "version": "5.0.1",
-  "description": "Compile Markdown to React with remark",
+  "description": "remark plugin to transform to React",
   "license": "MIT",
   "keywords": [
+    "unified",
+    "remark",
+    "plugin",
+    "mdast",
+    "markdown",
     "compile",
     "html",
-    "markdown",
-    "remark",
     "stringify"
   ],
   "repository": "remarkjs/remark-react",
   "bugs": "https://github.com/remarkjs/remark-react/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
-    "Tom MacWright <tom@macwright.org>",
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
-    "Ciaran Wood <cyrzinsomnia@gmail.com>",
+    "Tom MacWright <tom@macwright.org>",
+    "David Clark <dclark@mapbox.com>",
+    "Linda_pp <lin90162@yahoo.co.jp>",
     "Juho Vepsalainen <bebraw@gmail.com>",
-    "Jason Trill <jason@jasontrill.com>",
+    "Ciaran Wood <cyrzinsomnia@gmail.com>",
     "Tsuyusato Kitsune <make.just.on@gmail.com>",
-    "Jeremy Stucki <jeremy@interactivethings.com>"
+    "Jason Trill <jason@jasontrill.com>",
+    "Jeremy Stucki <jeremy@interactivethings.com>",
+    "stefanprobst <stefan.probst@univie.ac.at>",
+    "Mehdi Lahlou <mehdi.lahlou@free.fr>",
+    "Takuya Matsuyama <nora@odoruinu.net>",
+    "Ekongi Yancy <ek5000@outlook.com>",
+    "Artem Sapegin <artem@sapegin.ru>"
   ],
   "files": [
     "index.js"
