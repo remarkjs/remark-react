@@ -39,7 +39,7 @@
     "@mapbox/hast-util-table-cell-style": "^0.1.3",
     "hast-to-hyperscript": "^7.0.0",
     "hast-util-sanitize": "^1.0.0",
-    "mdast-util-to-hast": "^4.0.0"
+    "mdast-util-to-hast": "^6.0.0"
   },
   "devDependencies": {
     "is-hidden": "^1.0.0",
