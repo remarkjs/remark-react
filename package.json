@@ -1,6 +1,6 @@
 {
   "name": "remark-react",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "description": "remark plugin to transform to React",
   "license": "MIT",
   "keywords": [
