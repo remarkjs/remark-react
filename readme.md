@@ -130,6 +130,12 @@ remarkReactComponents: {
 See how to integrate with other remark plugins in the [Integrations][] section
 of `remark-html`.
 
+## Security
+
+Use of `remark-react` is *safe* by default, but changing the `sanitize` option
+can open you up to a [cross-site scripting (XSS)][xss] attack if the tree is
+unsafe.
+
 ## Contribute
 
 See [`contributing.md`][contributing] in [`remarkjs/.github`][health] for ways
