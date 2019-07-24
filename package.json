@@ -46,10 +46,10 @@
     "not": "^0.1.0",
     "nyc": "^14.0.0",
     "prettier": "^1.0.0",
-    "remark": "^10.0.0",
-    "remark-cli": "^6.0.0",
+    "remark": "^11.0.0",
+    "remark-cli": "^7.0.0",
     "remark-frontmatter": "^1.0.0",
-    "remark-preset-wooorm": "^5.0.0",
+    "remark-preset-wooorm": "^6.0.0",
     "tape": "^4.0.0",
     "vfile": "^4.0.0",
     "xo": "^0.24.0"
