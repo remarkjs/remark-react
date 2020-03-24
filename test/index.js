@@ -7,27 +7,25 @@ var remark = require('remark')
 var frontmatter = require('remark-frontmatter')
 var vfile = require('vfile')
 var hidden = require('is-hidden')
-var not = require('not')
+var negate = require('negate')
 var reactRenderer = require('..')
 
 var versions = ['v16']
 
-versions.forEach(function(reactVersion) {
+versions.forEach(function (reactVersion) {
   var React = require(path.join(__dirname, 'react', reactVersion))
 
   var root = path.join(__dirname, 'react', reactVersion, 'fixtures')
   var fixtures = fs.readdirSync(root)
 
-  fixtures = fixtures.filter(not(hidden))
+  fixtures = fixtures.filter(negate(hidden))
 
-  test('React ' + reactVersion, function(t) {
-    t.doesNotThrow(function() {
-      remark()
-        .use(reactRenderer)
-        .freeze()
+  test('React ' + reactVersion, function (t) {
+    t.doesNotThrow(function () {
+      remark().use(reactRenderer).freeze()
     }, 'should not throw if not passed options')
 
-    t.test('should use consistent keys on multiple renders', function(st) {
+    t.test('should use consistent keys on multiple renders', function (st) {
       var markdown = '# A **bold** heading'
 
       st.deepEqual(reactKeys(markdown), reactKeys(markdown))
@@ -52,7 +50,7 @@ versions.forEach(function(reactVersion) {
         if (reactElement.props != null) {
           var childKeys = []
 
-          React.Children.forEach(reactElement.props.children, function(child) {
+          React.Children.forEach(reactElement.props.children, function (child) {
             childKeys = childKeys.concat(extractKeys(child))
           })
 
@@ -69,7 +67,7 @@ versions.forEach(function(reactVersion) {
           .use(reactRenderer, {
             createElement: React.createElement,
             remarkReactComponents: {
-              h1: function(props) {
+              h1: function (props) {
                 return React.createElement('h2', props)
               }
             }
@@ -121,7 +119,7 @@ versions.forEach(function(reactVersion) {
       'passes toHast options to inner toHAST() function'
     )
 
-    fixtures.forEach(function(name) {
+    fixtures.forEach(function (name) {
       var base = path.join(root, name)
       var input = fs.readFileSync(path.join(base, 'input.md'))
       var expected = fs.readFileSync(path.join(base, 'output.html'), 'utf8')
@@ -130,7 +128,7 @@ versions.forEach(function(reactVersion) {
 
       try {
         config = JSON.parse(fs.readFileSync(path.join(base, 'config.json')))
-      } catch (error) {
+      } catch (_) {
         config = {}
       }
 

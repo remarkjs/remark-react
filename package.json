@@ -48,16 +48,16 @@
   },
   "devDependencies": {
     "is-hidden": "^1.0.0",
-    "not": "^0.1.0",
-    "nyc": "^14.0.0",
-    "prettier": "^1.0.0",
+    "negate": "^1.0.0",
+    "nyc": "^15.0.0",
+    "prettier": "^2.0.0",
     "remark": "^11.0.0",
     "remark-cli": "^7.0.0",
     "remark-frontmatter": "^1.0.0",
     "remark-preset-wooorm": "^6.0.0",
     "tape": "^4.0.0",
     "vfile": "^4.0.0",
-    "xo": "^0.24.0"
+    "xo": "^0.28.0"
   },
   "scripts": {
     "sub-install": "cd test/react/v16 && npm install && cd ../..",
@@ -84,10 +84,7 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "import/no-extraneous-dependencies": "off",
-      "import/no-unresolved": "off",
-      "import/no-dynamic-require": "off",
-      "max-nested-callbacks": "off",
+      "unicorn/prefer-includes": "off",
       "no-eq-null": "off",
       "eqeqeq": [
         "error",

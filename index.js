@@ -16,7 +16,7 @@ try {
   globalReact = require('react')
   globalCreateElement = globalReact.createElement
   globalFragment = globalReact.Fragment
-} catch (error) {}
+} catch (_) {}
 
 var own = {}.hasOwnProperty
 
@@ -43,7 +43,7 @@ function react(options) {
     // See: <https://github.com/facebook/react/pull/7515>.
     // See: <https://github.com/remarkjs/remark-react/issues/64>.
     if (children && tableElements.indexOf(name) !== -1) {
-      children = children.filter(function(child) {
+      children = children.filter(function (child) {
         return child !== '\n'
       })
     }
