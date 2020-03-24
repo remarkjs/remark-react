@@ -2,7 +2,7 @@
 
 module.exports = react
 
-var toHAST = require('mdast-util-to-hast')
+var toHast = require('mdast-util-to-hast')
 var sanitize = require('hast-util-sanitize')
 var toH = require('hast-to-hyperscript')
 var tableCellStyle = require('@mapbox/hast-util-table-cell-style')
@@ -36,8 +36,7 @@ function react(options) {
 
   // Wrapper around `createElement` to pass components in.
   function h(name, props, children) {
-    // Currently, a warning is triggered by react for *any* white space in
-    // tables.
+    // Currently, React issues a warning for *any* white space in tables.
     // So we remove the pretty lines for now.
     // See: <https://github.com/facebook/react/pull/7081>.
     // See: <https://github.com/facebook/react/pull/7515>.
@@ -57,7 +56,7 @@ function react(options) {
 
   // Compile mdast to React.
   function compile(node) {
-    var tree = toHAST(node, toHastOptions)
+    var tree = toHast(node, toHastOptions)
     var root
 
     if (clean) {
