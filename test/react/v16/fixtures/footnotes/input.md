@@ -1,6 +1,6 @@
 # Footnotes
 
-Alpha bravo[^charlie india].
+Alpha bravo^[charlie india].
 
 Delta Echo[^1].
 
@@ -78,6 +78,6 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 [^1]: This reference style footnote can contains paragraphs.
 
-   - and lists
+    - and lists
 
 [^2]: Normal footnote.

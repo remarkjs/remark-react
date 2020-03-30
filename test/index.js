@@ -5,6 +5,7 @@ var fs = require('fs')
 var test = require('tape')
 var remark = require('remark')
 var frontmatter = require('remark-frontmatter')
+var footnotes = require('remark-footnotes')
 var vfile = require('vfile')
 var hidden = require('is-hidden')
 var negate = require('negate')
@@ -36,7 +37,7 @@ versions.forEach(function (reactVersion) {
         return extractKeys(
           remark()
             .use(reactRenderer, {createElement: React.createElement})
-            .processSync(text).contents
+            .processSync(text).result
         )
       }
 
@@ -72,7 +73,7 @@ versions.forEach(function (reactVersion) {
               }
             }
           })
-          .processSync('# Foo').contents
+          .processSync('# Foo').result
       ),
       '<h2>Foo</h2>',
       'should use custom components'
@@ -86,7 +87,7 @@ versions.forEach(function (reactVersion) {
             createElement: React.createElement,
             sanitize: false
           })
-          .processSync('```empty\n```').contents
+          .processSync('```empty\n```').result
       ),
       '<pre><code class="language-empty"></code></pre>',
       'does not sanitize input when `sanitize` option is set to false'
@@ -99,7 +100,7 @@ versions.forEach(function (reactVersion) {
             createElement: React.createElement,
             fragment: React.Fragment
           })
-          .processSync('# Hello\nWorld').contents
+          .processSync('# Hello\nWorld').result
       ),
       '<h1>Hello</h1>\n<p>World</p>',
       'should support given fragments'
@@ -113,7 +114,7 @@ versions.forEach(function (reactVersion) {
             toHast: {commonmark: true}
           })
           .processSync('[reference]\n\n[reference]: a.com\n[reference]: b.com')
-          .contents
+          .result
       ),
       '<p><a href="a.com">reference</a></p>',
       'passes toHast options to inner toHAST() function'
@@ -138,8 +139,9 @@ versions.forEach(function (reactVersion) {
         remark()
           .data('settings', config)
           .use(frontmatter)
+          .use(footnotes, {inlineNotes: true})
           .use(reactRenderer, config)
-          .processSync(vfile({path: name + '.md', contents: input})).contents
+          .processSync(vfile({path: name + '.md', contents: input})).result
       )
 
       if (global.process.env.UPDATE) {
