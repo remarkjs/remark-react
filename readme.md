@@ -59,7 +59,7 @@ class App extends React.Component {
             unified()
               .use(parse)
               .use(remark2react)
-              .processSync(this.state.text).contents
+              .processSync(this.state.text).result
           }
         </div>
       </div>
@@ -75,6 +75,15 @@ ReactDom.render(<App />, document.getElementById('root'))
 ### `remark().use(react[, options])`
 
 Transform Markdown to React.
+
+Typically, [**unified**][unified] compilers return `string`.
+This compiler returns a `ReactElement`.
+When using `.process` or `.processSync`, the value at `file.result` (or when
+using `.stringify`, the return value), is a `ReactElement`.
+When using TypeScript, cast the type on your side.
+
+> ℹ️ In [`unified@9.0.0`][unified-9], the result of `.process` changed from
+> ~~`file.contents`~~ to `file.result`.
 
 ##### `options`
 
@@ -222,3 +231,7 @@ abide by its terms.
 [sanitize]: https://github.com/syntax-tree/hast-util-sanitize
 
 [integrations]: https://github.com/remarkjs/remark-html#integrations
+
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-9]: https://github.com/unifiedjs/unified/releases/tag/9.0.0
