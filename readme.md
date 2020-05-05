@@ -210,7 +210,7 @@ abide by its terms.
 
 [remark-rehype]: https://github.com/remarkjs/remark-rehype
 
-[rehype]: https://github.com/remarkjs/remark
+[rehype]: https://github.com/rehypejs/rehype
 
 [rehype-react]: https://github.com/rhysd/rehype-react
 
