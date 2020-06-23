@@ -54,15 +54,15 @@
     "remark": "^12.0.0",
     "remark-cli": "^8.0.0",
     "remark-footnotes": "^1.0.0",
-    "remark-frontmatter": "^1.0.0",
-    "remark-preset-wooorm": "^6.0.0",
-    "tape": "^4.0.0",
+    "remark-frontmatter": "^2.0.0",
+    "remark-preset-wooorm": "^7.0.0",
+    "tape": "^5.0.0",
     "vfile": "^4.0.0",
-    "xo": "^0.28.0"
+    "xo": "^0.32.0"
   },
   "scripts": {
     "sub-install": "cd test/react/v16 && npm install && cd ../..",
-    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
+    "format": "remark . -qfo && prettier . --write && xo --fix",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
     "test": "npm run sub-install && npm run format && npm run test-coverage"
@@ -85,7 +85,9 @@
     "prettier": true,
     "esnext": false,
     "rules": {
+      "unicorn/no-fn-reference-in-iterator": "off",
       "unicorn/prefer-includes": "off",
+      "unicorn/prefer-optional-catch-binding": "off",
       "no-eq-null": "off",
       "eqeqeq": [
         "error",
