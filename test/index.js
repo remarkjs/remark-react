@@ -145,7 +145,7 @@ versions.forEach(function (reactVersion) {
       )
 
       if (global.process.env.UPDATE) {
-        fs.writeFileSync(path.join(root, name, 'output.html'), actual)
+        fs.writeFileSync(path.join(root, name, 'output.html'), actual + '\n')
       }
 
       t.equal(actual.trim(), expected.trim(), name)
