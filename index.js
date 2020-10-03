@@ -41,6 +41,8 @@ function react(options) {
     // See: <https://github.com/facebook/react/pull/7081>.
     // See: <https://github.com/facebook/react/pull/7515>.
     // See: <https://github.com/remarkjs/remark-react/issues/64>.
+    /* istanbul ignore next - still works but need to publish `remark-gfm`
+     * first. */
     if (children && tableElements.indexOf(name) !== -1) {
       children = children.filter(function (child) {
         return child !== '\n'
