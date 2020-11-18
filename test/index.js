@@ -12,7 +12,7 @@ var frontmatter = require('remark-frontmatter')
 var footnotes = require('remark-footnotes')
 var reactRenderer = require('..')
 
-var versions = ['v16']
+var versions = ['v17']
 
 versions.forEach(function (reactVersion) {
   var React = require(path.join(__dirname, 'react', reactVersion))

@@ -61,7 +61,7 @@
     "xo": "^0.34.0"
   },
   "scripts": {
-    "sub-install": "cd test/react/v16 && npm install && cd ../..",
+    "sub-install": "cd test/react/v17 && npm install && cd ../..",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
     "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",

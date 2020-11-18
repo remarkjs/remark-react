@@ -1,9 +1,9 @@
 {
-  "name": "v16",
+  "name": "v17",
   "private": true,
   "main": "index.js",
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
