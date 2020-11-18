@@ -58,7 +58,7 @@
     "remark-preset-wooorm": "^8.0.0",
     "tape": "^5.0.0",
     "vfile": "^4.0.0",
-    "xo": "^0.33.0"
+    "xo": "^0.34.0"
   },
   "scripts": {
     "sub-install": "cd test/react/v16 && npm install && cd ../..",
