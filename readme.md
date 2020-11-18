@@ -168,9 +168,9 @@ abide by its terms.
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/remarkjs/remark-react/main.svg
+[build-badge]: https://github.com/remarkjs/remark-react/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/remarkjs/remark-react
+[build]: https://github.com/remarkjs/remark-react/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/remarkjs/remark-react.svg
 
