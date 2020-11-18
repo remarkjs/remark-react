@@ -142,8 +142,11 @@ remarkReactComponents: {
 
 ## Integrations
 
-See how to integrate with other remark plugins in the [Integrations][] section
-of `remark-html`.
+`remark-react` is similar in configuration to its alternative `remark-html`.
+You’ll want to use one or the other but setting up plugins for either is done
+in the same way.
+As such, you can see how to integrate with other remark plugins in the
+[Integrations][] section of `remark-html`’s documentation.
 
 ## Security
 
