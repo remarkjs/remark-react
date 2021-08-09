@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('mdast').Image} Image
+ * @typedef {import('react').ReactNode} ReactNode
+ * @typedef {import('react').ReactElement<unknown>} ReactElement
+ */
+
 import path from 'path'
 import fs from 'fs'
 import test from 'tape'
@@ -12,9 +18,14 @@ import {renderToStaticMarkup} from 'react-dom/server.js'
 import remarkReact from '../index.js'
 
 test('React ' + React.version, (t) => {
-  t.doesNotThrow(() => {
-    remark().use(remarkReact).freeze()
-  }, 'should not throw if not passed options')
+  t.throws(
+    () => {
+      // @ts-expect-error: Options missing.
+      remark().use(remarkReact).freeze()
+    },
+    /Missing `createElement` in `options`/,
+    'should throw if not passed options'
+  )
 
   t.test('should use consistent keys on multiple renders', (st) => {
     const markdown = '# A **bold** heading'
@@ -23,6 +34,9 @@ test('React ' + React.version, (t) => {
 
     st.end()
 
+    /**
+     * @param {string} text
+     */
     function reactKeys(text) {
       return extractKeys(
         remark()
@@ -31,14 +45,29 @@ test('React ' + React.version, (t) => {
       )
     }
 
+    /**
+     * @param {ReactElement} reactElement
+     * @returns {Array.<string|number>}
+     */
     function extractKeys(reactElement) {
+      /** @type {Array.<string|number>} */
       const keys = []
 
       if (reactElement.key !== undefined && reactElement.key !== null) {
         keys.push(reactElement.key)
       }
 
-      if (reactElement.props !== undefined && reactElement.props !== null) {
+      if (
+        reactElement.props &&
+        typeof reactElement.props === 'object' &&
+        // `children` does exist.
+        // @ts-expect-error
+        // type-coverage:ignore-next-line
+        reactElement.props.children
+      ) {
+        // `children` does exist.
+        // @ts-expect-error
+        // type-coverage:ignore-next-line
         React.Children.forEach(reactElement.props.children, (child) => {
           keys.push(...extractKeys(child))
         })
@@ -97,12 +126,17 @@ test('React ' + React.version, (t) => {
       remark()
         .use(remarkReact, {
           createElement: React.createElement,
-          toHast: {commonmark: true}
+          toHast: {
+            handlers: {
+              image(_, /** @type {Image} */ node) {
+                return {type: 'text', value: node.alt || ''}
+              }
+            }
+          }
         })
-        .processSync('[reference]\n\n[reference]: a.com\n[reference]: b.com')
-        .result
+        .processSync('![a]()').result
     ),
-    '<p><a href="a.com">reference</a></p>',
+    '<p>a</p>',
     'passes toHast options to inner toHast() function'
   )
 
@@ -121,7 +155,9 @@ test('React ' + React.version, (t) => {
     let config = {}
 
     try {
-      config = JSON.parse(fs.readFileSync(path.join(base, 'config.json')))
+      config = JSON.parse(
+        String(fs.readFileSync(path.join(base, 'config.json')))
+      )
     } catch {}
 
     config.createElement = React.createElement
