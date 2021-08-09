@@ -1,21 +1,15 @@
 import path from 'path'
 import fs from 'fs'
 import test from 'tape'
-import remark from 'remark'
-import vfile from 'vfile'
-import hidden from 'is-hidden'
-import negate from 'negate'
-import gfm from 'remark-gfm'
-import frontmatter from 'remark-frontmatter'
-import footnotes from 'remark-footnotes'
+import {remark} from 'remark'
+import {VFile} from 'vfile'
+import {isHidden} from 'is-hidden'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkFootnotes from 'remark-footnotes'
 import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server.js'
 import remarkReact from '../index.js'
-
-var root = path.join('test', 'fixtures')
-var fixtures = fs.readdirSync(root)
-
-fixtures = fixtures.filter(negate(hidden))
 
 test('React ' + React.version, function (t) {
   t.doesNotThrow(function () {
@@ -116,29 +110,34 @@ test('React ' + React.version, function (t) {
     'passes toHast options to inner toHast() function'
   )
 
-  fixtures.forEach(function (name) {
-    var base = path.join(root, name)
-    var input = fs.readFileSync(path.join(base, 'input.md'))
-    var expected = fs.readFileSync(path.join(base, 'output.html'), 'utf8')
-    var config
-    var actual
+  var root = path.join('test', 'fixtures')
+  var fixtures = fs.readdirSync(root)
+  let index = -1
+
+  while (++index < fixtures.length) {
+    const name = fixtures[index]
+
+    if (isHidden(name)) continue
+
+    const base = path.join(root, name)
+    const input = fs.readFileSync(path.join(base, 'input.md'))
+    const expected = fs.readFileSync(path.join(base, 'output.html'), 'utf8')
+    let config = {}
 
     try {
       config = JSON.parse(fs.readFileSync(path.join(base, 'config.json')))
-    } catch (_) {
-      config = {}
-    }
+    } catch (_) {}
 
     config.createElement = React.createElement
 
-    actual = renderToStaticMarkup(
+    const actual = renderToStaticMarkup(
       remark()
         .data('settings', config)
-        .use(gfm)
-        .use(frontmatter)
-        .use(footnotes, {inlineNotes: true})
+        .use(remarkGfm)
+        .use(remarkFrontmatter)
+        .use(remarkFootnotes, {inlineNotes: true})
         .use(remarkReact, config)
-        .processSync(vfile({path: name + '.md', contents: input})).result
+        .processSync(new VFile({path: name + '.md', value: input})).result
     )
 
     if (global.process.env.UPDATE) {
@@ -146,7 +145,7 @@ test('React ' + React.version, function (t) {
     }
 
     t.equal(actual.trim(), expected.trim(), name)
-  })
+  }
 
   t.end()
 })
