@@ -62,7 +62,7 @@
     "remark-preset-wooorm": "^8.0.0",
     "tape": "^5.0.0",
     "vfile": "^5.0.0",
-    "xo": "^0.34.0"
+    "xo": "^0.39.0"
   },
   "scripts": {
     "sub-install": "cd test/react/v17 && npm install && cd ../..",
@@ -80,21 +80,7 @@
     "trailingComma": "none"
   },
   "xo": {
-    "prettier": true,
-    "esnext": false,
-    "rules": {
-      "unicorn/no-fn-reference-in-iterator": "off",
-      "unicorn/prefer-includes": "off",
-      "unicorn/prefer-optional-catch-binding": "off",
-      "no-eq-null": "off",
-      "eqeqeq": [
-        "error",
-        "always",
-        {
-          "null": "ignore"
-        }
-      ]
-    }
+    "prettier": true
   },
   "remarkConfig": {
     "plugins": [

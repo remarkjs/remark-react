@@ -11,13 +11,13 @@ import React from 'react'
 import {renderToStaticMarkup} from 'react-dom/server.js'
 import remarkReact from '../index.js'
 
-test('React ' + React.version, function (t) {
-  t.doesNotThrow(function () {
+test('React ' + React.version, (t) => {
+  t.doesNotThrow(() => {
     remark().use(remarkReact).freeze()
   }, 'should not throw if not passed options')
 
-  t.test('should use consistent keys on multiple renders', function (st) {
-    var markdown = '# A **bold** heading'
+  t.test('should use consistent keys on multiple renders', (st) => {
+    const markdown = '# A **bold** heading'
 
     st.deepEqual(reactKeys(markdown), reactKeys(markdown))
 
@@ -32,20 +32,16 @@ test('React ' + React.version, function (t) {
     }
 
     function extractKeys(reactElement) {
-      var keys = []
+      const keys = []
 
-      if (reactElement.key != null) {
-        keys = keys.concat(reactElement.key)
+      if (reactElement.key !== undefined && reactElement.key !== null) {
+        keys.push(reactElement.key)
       }
 
-      if (reactElement.props != null) {
-        var childKeys = []
-
-        React.Children.forEach(reactElement.props.children, function (child) {
-          childKeys = childKeys.concat(extractKeys(child))
+      if (reactElement.props !== undefined && reactElement.props !== null) {
+        React.Children.forEach(reactElement.props.children, (child) => {
+          keys.push(...extractKeys(child))
         })
-
-        keys = keys.concat(childKeys)
       }
 
       return keys
@@ -58,7 +54,7 @@ test('React ' + React.version, function (t) {
         .use(remarkReact, {
           createElement: React.createElement,
           remarkReactComponents: {
-            h1: function (props) {
+            h1(props) {
               return React.createElement('h2', props)
             }
           }
@@ -110,8 +106,8 @@ test('React ' + React.version, function (t) {
     'passes toHast options to inner toHast() function'
   )
 
-  var root = path.join('test', 'fixtures')
-  var fixtures = fs.readdirSync(root)
+  const root = path.join('test', 'fixtures')
+  const fixtures = fs.readdirSync(root)
   let index = -1
 
   while (++index < fixtures.length) {
@@ -126,7 +122,7 @@ test('React ' + React.version, function (t) {
 
     try {
       config = JSON.parse(fs.readFileSync(path.join(base, 'config.json')))
-    } catch (_) {}
+    } catch {}
 
     config.createElement = React.createElement
 
@@ -140,7 +136,7 @@ test('React ' + React.version, function (t) {
         .processSync(new VFile({path: name + '.md', value: input})).result
     )
 
-    if (global.process.env.UPDATE) {
+    if (process.env.UPDATE) {
       fs.writeFileSync(path.join(root, name, 'output.html'), actual + '\n')
     }
 

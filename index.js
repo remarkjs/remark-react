@@ -3,19 +3,19 @@ import {sanitize} from 'hast-util-sanitize'
 import {toH} from 'hast-to-hyperscript'
 import tableCellStyle from '@mapbox/hast-util-table-cell-style'
 
-var own = {}.hasOwnProperty
+const own = {}.hasOwnProperty
 
-var tableElements = ['table', 'thead', 'tbody', 'tfoot', 'tr']
+const tableElements = new Set(['table', 'thead', 'tbody', 'tfoot', 'tr'])
 
 export default function remarkReact(options) {
-  var settings = options || {}
-  var createElement = settings.createElement
-  var Fragment = settings.Fragment || settings.fragment
-  var clean = settings.sanitize !== false
-  var scheme =
+  const settings = options || {}
+  const createElement = settings.createElement
+  const Fragment = settings.Fragment || settings.fragment
+  const clean = settings.sanitize !== false
+  const scheme =
     clean && typeof settings.sanitize !== 'boolean' ? settings.sanitize : null
-  var toHastOptions = settings.toHast || {}
-  var components = settings.remarkReactComponents || {}
+  const toHastOptions = settings.toHast || {}
+  const components = settings.remarkReactComponents || {}
 
   this.Compiler = compile
 
@@ -28,8 +28,8 @@ export default function remarkReact(options) {
     // See: <https://github.com/remarkjs/remark-react/issues/64>.
     /* istanbul ignore next - still works but need to publish `remark-gfm`
      * first. */
-    if (children && tableElements.indexOf(name) !== -1) {
-      children = children.filter(function (child) {
+    if (children && tableElements.has(name)) {
+      children = children.filter((child) => {
         return child !== '\n'
       })
     }
@@ -43,14 +43,13 @@ export default function remarkReact(options) {
 
   // Compile mdast to React.
   function compile(node) {
-    var tree = toHast(node, toHastOptions)
-    var root
+    let tree = toHast(node, toHastOptions)
 
     if (clean) {
       tree = sanitize(tree, scheme)
     }
 
-    root = toH(h, tableCellStyle(tree), settings.prefix)
+    let root = toH(h, tableCellStyle(tree), settings.prefix)
 
     // If this compiled to a `<div>`, but fragment are possible, use those.
     if (root.type === 'div' && Fragment) {
