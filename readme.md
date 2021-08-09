@@ -32,6 +32,9 @@ No change is needed: it works exactly the same now as it did before!
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -43,19 +46,21 @@ npm install remark-react
 ```js
 import React from 'react'
 import ReactDom from 'react-dom'
-import unified from 'unified'
-import parse from 'remark-parse'
-import remark2react from 'remark-react'
+import {unified} from 'unified'
+import remarkParse from 'remark-parse'
+import remarkReact from 'remark-react'
 
 class App extends React.Component {
   constructor() {
     super()
-    this.state = { text: '# hello world' }
+    this.state = {text: '# hello world'}
     this.onChange = this.onChange.bind(this)
   }
-  onChange(e) {
-    this.setState({ text: e.target.value })
+
+  onChange(event) {
+    this.setState({text: event.target.value})
   }
+
   render() {
     return (
       <div>
@@ -63,8 +68,8 @@ class App extends React.Component {
         <div id="preview">
           {
             unified()
-              .use(parse)
-              .use(remark2react, React)
+              .use(remarkParse)
+              .use(remarkReact, React)
               .processSync(this.state.text).result
           }
         </div>
@@ -73,12 +78,15 @@ class App extends React.Component {
   }
 }
 
-ReactDom.render(<App />, document.getElementById('root'))
+ReactDom.render(<App />, document.querySelector('#root'))
 ```
 
 ## API
 
-### `remark().use(react, options)`
+This package exports no identifiers.
+The default export is `remarkReact`.
+
+### `unified().use(remarkReact, options)`
 
 Transform Markdown to React.
 
