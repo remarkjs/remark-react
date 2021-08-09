@@ -96,9 +96,6 @@ When using `.process` or `.processSync`, the value at `file.result` (or when
 using `.stringify`, the return value), is a `ReactElement`.
 When using TypeScript, cast the type on your side.
 
-> ℹ️ In [`unified@9.0.0`][unified-9], the result of `.process` changed from
-> ~~`file.contents`~~ to `file.result`.
-
 ##### `options`
 
 ###### `options.createElement`
@@ -107,8 +104,7 @@ How to create elements or components (`Function`, required).
 
 ###### `options.Fragment`
 
-Create fragments instead of an outer `<div>` if available (`unknown`,
-required).
+Create fragments instead of an outer `<div>` if available (`unknown`).
 
 ###### `options.toHast`
 
@@ -249,5 +245,3 @@ abide by its terms.
 [integrations]: https://github.com/remarkjs/remark-html#integrations
 
 [unified]: https://github.com/unifiedjs/unified
-
-[unified-9]: https://github.com/unifiedjs/unified/releases/tag/9.0.0
