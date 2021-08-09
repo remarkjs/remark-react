@@ -97,7 +97,7 @@ When using TypeScript, cast the type on your side.
 
 How to create elements or components (`Function`, required).
 
-###### `options.fragment`
+###### `options.Fragment`
 
 Create fragments instead of an outer `<div>` if available (`unknown`,
 required).

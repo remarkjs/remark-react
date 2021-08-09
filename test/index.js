@@ -1,30 +1,29 @@
-'use strict'
-
-var path = require('path')
-var fs = require('fs')
-var test = require('tape')
-var remark = require('remark')
-var vfile = require('vfile')
-var hidden = require('is-hidden')
-var negate = require('negate')
-var gfm = require('remark-gfm')
-var frontmatter = require('remark-frontmatter')
-var footnotes = require('remark-footnotes')
-var reactRenderer = require('..')
+import path from 'path'
+import fs from 'fs'
+import test from 'tape'
+import remark from 'remark'
+import vfile from 'vfile'
+import hidden from 'is-hidden'
+import negate from 'negate'
+import gfm from 'remark-gfm'
+import frontmatter from 'remark-frontmatter'
+import footnotes from 'remark-footnotes'
+import remarkReact from '../index.js'
 
 var versions = ['v17']
 
-versions.forEach(function (reactVersion) {
-  var React = require(path.join(__dirname, 'react', reactVersion))
+versions.forEach(async function (reactVersion) {
+  const url = new URL('./react/' + reactVersion + '/index.js', import.meta.url)
+  var {React, renderToStaticMarkup} = await import(url)
 
-  var root = path.join(__dirname, 'react', reactVersion, 'fixtures')
+  var root = path.join('test', 'react', reactVersion, 'fixtures')
   var fixtures = fs.readdirSync(root)
 
   fixtures = fixtures.filter(negate(hidden))
 
   test('React ' + reactVersion, function (t) {
     t.doesNotThrow(function () {
-      remark().use(reactRenderer).freeze()
+      remark().use(remarkReact).freeze()
     }, 'should not throw if not passed options')
 
     t.test('should use consistent keys on multiple renders', function (st) {
@@ -37,7 +36,7 @@ versions.forEach(function (reactVersion) {
       function reactKeys(text) {
         return extractKeys(
           remark()
-            .use(reactRenderer, {createElement: React.createElement})
+            .use(remarkReact, {createElement: React.createElement})
             .processSync(text).result
         )
       }
@@ -64,9 +63,9 @@ versions.forEach(function (reactVersion) {
     })
 
     t.equal(
-      React.renderToStaticMarkup(
+      renderToStaticMarkup(
         remark()
-          .use(reactRenderer, {
+          .use(remarkReact, {
             createElement: React.createElement,
             remarkReactComponents: {
               h1: function (props) {
@@ -82,9 +81,9 @@ versions.forEach(function (reactVersion) {
 
     // If sanitation were done, 'class' property should be removed.
     t.equal(
-      React.renderToStaticMarkup(
+      renderToStaticMarkup(
         remark()
-          .use(reactRenderer, {
+          .use(remarkReact, {
             createElement: React.createElement,
             sanitize: false
           })
@@ -95,11 +94,11 @@ versions.forEach(function (reactVersion) {
     )
 
     t.equal(
-      React.renderToStaticMarkup(
+      renderToStaticMarkup(
         remark()
-          .use(reactRenderer, {
+          .use(remarkReact, {
             createElement: React.createElement,
-            fragment: React.Fragment
+            Fragment: React.Fragment
           })
           .processSync('# Hello\nWorld').result
       ),
@@ -108,9 +107,9 @@ versions.forEach(function (reactVersion) {
     )
 
     t.equal(
-      React.renderToStaticMarkup(
+      renderToStaticMarkup(
         remark()
-          .use(reactRenderer, {
+          .use(remarkReact, {
             createElement: React.createElement,
             toHast: {commonmark: true}
           })
@@ -118,7 +117,7 @@ versions.forEach(function (reactVersion) {
           .result
       ),
       '<p><a href="a.com">reference</a></p>',
-      'passes toHast options to inner toHAST() function'
+      'passes toHast options to inner toHast() function'
     )
 
     fixtures.forEach(function (name) {
@@ -136,13 +135,13 @@ versions.forEach(function (reactVersion) {
 
       config.createElement = React.createElement
 
-      actual = React.renderToStaticMarkup(
+      actual = renderToStaticMarkup(
         remark()
           .data('settings', config)
           .use(gfm)
           .use(frontmatter)
           .use(footnotes, {inlineNotes: true})
-          .use(reactRenderer, config)
+          .use(remarkReact, config)
           .processSync(vfile({path: name + '.md', contents: input})).result
       )
 

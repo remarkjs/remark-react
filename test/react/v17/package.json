@@ -1,6 +1,7 @@
 {
   "name": "v17",
   "private": true,
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "react": "^17.0.0",

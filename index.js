@@ -1,20 +1,16 @@
-'use strict'
-
-module.exports = react
-
-var toHast = require('mdast-util-to-hast')
-var sanitize = require('hast-util-sanitize')
-var toH = require('hast-to-hyperscript')
-var tableCellStyle = require('@mapbox/hast-util-table-cell-style')
+import toHast from 'mdast-util-to-hast'
+import sanitize from 'hast-util-sanitize'
+import toH from 'hast-to-hyperscript'
+import tableCellStyle from '@mapbox/hast-util-table-cell-style'
 
 var own = {}.hasOwnProperty
 
 var tableElements = ['table', 'thead', 'tbody', 'tfoot', 'tr']
 
-function react(options) {
+export default function remarkReact(options) {
   var settings = options || {}
   var createElement = settings.createElement
-  var Fragment = settings.fragment
+  var Fragment = settings.Fragment || settings.fragment
   var clean = settings.sanitize !== false
   var scheme =
     clean && typeof settings.sanitize !== 'boolean' ? settings.sanitize : null

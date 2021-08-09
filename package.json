@@ -37,6 +37,9 @@
     "Ekongi Yancy <ek5000@outlook.com>",
     "Artem Sapegin <artem@sapegin.ru>"
   ],
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
