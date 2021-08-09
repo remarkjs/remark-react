@@ -44,10 +44,10 @@
     "index.js"
   ],
   "dependencies": {
-    "@mapbox/hast-util-table-cell-style": "^0.1.3",
-    "hast-to-hyperscript": "^9.0.0",
-    "hast-util-sanitize": "^3.0.0",
-    "mdast-util-to-hast": "^10.0.0"
+    "@mapbox/hast-util-table-cell-style": "^0.2.0",
+    "hast-to-hyperscript": "^10.0.0",
+    "hast-util-sanitize": "^4.0.0",
+    "mdast-util-to-hast": "^11.0.0"
   },
   "devDependencies": {
     "c8": "^7.0.0",

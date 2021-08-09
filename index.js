@@ -1,6 +1,6 @@
-import toHast from 'mdast-util-to-hast'
-import sanitize from 'hast-util-sanitize'
-import toH from 'hast-to-hyperscript'
+import {toHast} from 'mdast-util-to-hast'
+import {sanitize} from 'hast-util-sanitize'
+import {toH} from 'hast-to-hyperscript'
 import tableCellStyle from '@mapbox/hast-util-table-cell-style'
 
 var own = {}.hasOwnProperty
