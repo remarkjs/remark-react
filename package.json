@@ -73,7 +73,7 @@
     "type-coverage": "^2.0.0",
     "typescript": "^4.0.0",
     "vfile": "^5.0.0",
-    "xo": "^0.39.0"
+    "xo": "^0.44.0"
   },
   "scripts": {
     "build": "rimraf \"lib/**/*.d.ts\" \"test/**/*.d.ts\" && tsc && type-coverage",

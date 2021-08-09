@@ -4,8 +4,9 @@
  * @typedef {import('react').ReactElement<unknown>} ReactElement
  */
 
-import path from 'path'
-import fs from 'fs'
+import fs from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 import test from 'tape'
 import {remark} from 'remark'
 import {VFile} from 'vfile'
