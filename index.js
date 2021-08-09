@@ -7,25 +7,14 @@ var sanitize = require('hast-util-sanitize')
 var toH = require('hast-to-hyperscript')
 var tableCellStyle = require('@mapbox/hast-util-table-cell-style')
 
-var globalReact
-var globalCreateElement
-var globalFragment
-
-/* istanbul ignore next - Hard to test */
-try {
-  globalReact = require('react')
-  globalCreateElement = globalReact.createElement
-  globalFragment = globalReact.Fragment
-} catch (_) {}
-
 var own = {}.hasOwnProperty
 
 var tableElements = ['table', 'thead', 'tbody', 'tfoot', 'tr']
 
 function react(options) {
   var settings = options || {}
-  var createElement = settings.createElement || globalCreateElement
-  var Fragment = settings.fragment || globalFragment
+  var createElement = settings.createElement
+  var Fragment = settings.fragment
   var clean = settings.sanitize !== false
   var scheme =
     clean && typeof settings.sanitize !== 'boolean' ? settings.sanitize : null

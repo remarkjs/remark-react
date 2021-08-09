@@ -64,7 +64,7 @@ class App extends React.Component {
           {
             unified()
               .use(parse)
-              .use(remark2react)
+              .use(remark2react, React)
               .processSync(this.state.text).result
           }
         </div>
@@ -78,7 +78,7 @@ ReactDom.render(<App />, document.getElementById('root'))
 
 ## API
 
-### `remark().use(react[, options])`
+### `remark().use(react, options)`
 
 Transform Markdown to React.
 
@@ -92,6 +92,15 @@ When using TypeScript, cast the type on your side.
 > ~~`file.contents`~~ to `file.result`.
 
 ##### `options`
+
+###### `options.createElement`
+
+How to create elements or components (`Function`, required).
+
+###### `options.fragment`
+
+Create fragments instead of an outer `<div>` if available (`unknown`,
+required).
 
 ###### `options.toHast`
 
@@ -114,16 +123,6 @@ Setting this to `false` is just as bad as using
 ###### `options.prefix`
 
 React key (default: `h-`).
-
-###### `options.createElement`
-
-How to create elements or components (`Function`).
-Default: `require('react').createElement`
-
-###### `options.fragment`
-
-Create fragments instead of an outer `<div>` if available (`Function`, default:
-`require('react').Fragment`).
 
 ###### `options.remarkReactComponents`
 
