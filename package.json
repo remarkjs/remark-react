@@ -1,6 +1,6 @@
 {
   "name": "remark-react",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Legacy remark plugin to transform to React — please use `rehype-react`",
   "license": "MIT",
   "keywords": [],
