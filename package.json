@@ -1,19 +1,9 @@
 {
   "name": "remark-react",
   "version": "9.0.0",
-  "description": "remark plugin to transform to React",
+  "description": "Legacy remark plugin to transform to React — please use `rehype-react`",
   "license": "MIT",
-  "keywords": [
-    "unified",
-    "remark",
-    "remark-plugin",
-    "plugin",
-    "mdast",
-    "markdown",
-    "compile",
-    "html",
-    "stringify"
-  ],
+  "keywords": [],
   "repository": "remarkjs/remark-react",
   "bugs": "https://github.com/remarkjs/remark-react/issues",
   "funding": {
