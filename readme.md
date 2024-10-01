@@ -1,28 +1,11 @@
 # remark-react
 
-**Stability: Legacy**.
-This package is no longer recommended for use.
-It’s still covered by semantic-versioning guarantees and not yet deprecated,
-but use of this package should be avoided.
+Deprecated: this package is no longer maintained.
 Please use `remark-rehype` to move from remark (markdown) to rehype (HTML)
 and then replace `remark-react` with [`rehype-react`][rehype-react].
 
-Legacy [documentation for this package](https://github.com/remarkjs/remark-react/tree/4722bdf)
-is still available in Git.
+[Git][] is still intact and previous versions can still be used without warnings.
 
-## License
-
-[MIT][license] © [Titus Wormer][author], modified by [Tom MacWright][tom] and
-[Mapbox][].
-
-<!-- Definitions -->
-
-[license]: license
-
-[author]: https://wooorm.com
-
-[tom]: https://macwright.org
-
-[mapbox]: https://www.mapbox.com
+[git]: https://github.com/remarkjs/remark-react/tree/158e33e
 
 [rehype-react]: https://github.com/rehypejs/rehype-react

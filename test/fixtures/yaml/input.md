@@ -1,5 +1,0 @@
----
-YAML: cool
----
-
-# Hello world
